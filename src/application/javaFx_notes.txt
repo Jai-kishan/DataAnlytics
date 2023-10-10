@@ -1,0 +1,51 @@
+Few steps which need to follow for running project
+
+
+Download JavaFx and SceneBuilder
+
+eclips : windows -> preferences -> javaFX ->
+1. set the screenBuilder executale exe fiel : C:\Users\jaiki\AppData\Local\SceneBuilder\SceneBuilder.exe
+2. select the javaFx jar files : C:\Program Files\Java\javafx-sdk-21\lib
+
+
+
+help eclips market download the f(ex) plugin 
+
+you can get the latest version by using the nightly software site instead:
+
+Go to Help > Install New Software
+Click the Add... button beside Manage....
+A dialog titled Add Repository will appear, asking for a name and location.
+For the name field, you can insert something like e(fx)clipse nightly.
+For the location field, insert https://download.eclipse.org/efxclipse/updates-nightly/site/
+Click Add.
+ref link https://stackoverflow.com/questions/74758570/cant-create-new-fxml-file-in-eclipse
+
+Check all the items and click Next.
+The next window will show you a list of items to be installed, just click Finish and wait for it to complete the installation.
+
+
+vmargs :- --module-path "C:\Program Files\Java\javafx-sdk-21\lib" --add-modules javafx.controls,javafx.fxml
+
+
+jdbc driver is not found 
+https://dev.mysql.com/downloads/connector/j/
+download and extract 
+follow below path and add the jar file 
+select project name -> file -> property -> java build path -> add external jars 
+
+
+
+need to download the mysql 
+
+download xampp server 
+
+ERROR: The process with PID 3984 could not be terminated.
+Reason: Access is denied.
+
+
+
+Run your cmd as an administrator. It will work.
+netstat -a -n -o | find "3306"
+taskkill /pid 3306 /f
+
