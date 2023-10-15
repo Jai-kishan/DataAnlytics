@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "dist/lib/fontawesomefx-8.2.jar",
+        "dist/lib/jfreechart-1.0.19.jar"
+    ]
+}
