@@ -178,4 +178,20 @@
     -fx-border-radius:4px;
     -fx-padding:0px 0px 0px 5px;
 }
+
+
+.export-btn{
+    -fx-background-color:linear-gradient(to bottom, #3f5efb, #fc466b);
+    -fx-background-radius:4px;
+    -fx-cursor:hand;
+    -fx-text-fill:#fff;
+    -fx-font-size:14px;
+    -fx-font-family:"Arial";   
+}
+
+
+.export-btn:hover{
+    -fx-background-color:linear-gradient(to bottom, #277bd0, #1b6fa4);
+
+}
 /* NOW FINALLY WE FINISHED THE COMPONENTS, NOW LETS NAME ALL OF THEM : )  OLD color  #2d658c, #2ca772*/ 

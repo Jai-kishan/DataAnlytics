@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.util.Date;
+import javafx.stage.FileChooser;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -45,6 +46,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import java.io.FileWriter; // Import the FileWriter class
+import java.io.IOException;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -164,6 +167,9 @@ public class dashboardController implements Initializable {
 
    @FXML
    private Button userProfile_btn;
+
+    @FXML
+    private Button postData_exportBtn;   
 
    @FXML
    private AnchorPane userProfile_form;
@@ -348,6 +354,7 @@ public class dashboardController implements Initializable {
 
    }
 
+//    USING THIS METHOD WE ARE SHOWING THE TOP N SHARE DATA
 public void topNShare() {
 
         // Set up the columns
@@ -388,6 +395,8 @@ public void topNShare() {
         return data;
     }
 
+
+//    USING THIS METHOD WE ARE SHOWING THE TOP N LIKES DATA
 public void topNLikes() {
 
         // Set up the columns
@@ -762,7 +771,6 @@ public void addStudentsSearch() {
 
        studentData studentD = addStudents_tableView.getSelectionModel().getSelectedItem();
        int num = addStudents_tableView.getSelectionModel().getSelectedIndex();
-        System.out.println("num---" +  num);
        if ((num - 1) < -1) {
            return;
        }
@@ -782,6 +790,45 @@ public void addStudentsSearch() {
        getData.path = studentD.getImage();
 
    }
+
+
+
+   public void expostPostData() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save CSV File");
+    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+    
+    File file = fileChooser.showSaveDialog(null); // Opens the save dialog
+
+    if (file != null) {
+        try (FileWriter writer = new FileWriter(file)) {
+
+            ObservableList<TableColumn<studentData, ?>> columns = addStudents_tableView.getColumns();
+                
+            // Write the column headers to the CSV file
+            for (TableColumn<studentData, ?> column : columns) {
+                writer.write(column.getText() + ",");
+            }
+            writer.write("\n");
+
+               // Write the data from the table to the CSV file
+               for (studentData item : addStudents_tableView.getItems()) {
+                for (TableColumn<studentData, ?> column : columns) {
+                    Object cellData = column.getCellData(item);
+                    writer.write(cellData + ",");
+                }
+                writer.write("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}   
+   
+
+
+
+
 
    public void userProfilesUpdate() {
        String checkData = "SELECT * FROM users WHERE username = '"
@@ -940,7 +987,7 @@ public void addStudentsSearch() {
    public void defaultNav(){
        home_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3f82ae, #26bf7d);");
    }
-   
+
    public void switchForm(ActionEvent event) {
        if (event.getSource() == home_btn) {
            home_form.setVisible(true);
@@ -995,8 +1042,6 @@ public void addStudentsSearch() {
         stage.setIconified(true);
     }
 
-    // SORRY ABOUT THAT, I JUST NAMED THE DIFFERENT COMPONENTS WITH THE SAME NAME 
-    // MAKE SURE THAT THE NAME YOU GAVE TO THEM ARE DIFFERENT TO THE OTHER OKAY?
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         displayUsername();
@@ -1007,7 +1052,6 @@ public void addStudentsSearch() {
        homeDisplayFemaleEnrolled();
        topNLikes();
        topNShare();
-    //    homeDisplayFemaleEnrolledChart();
        homeDisplayTotalEnrolledChart();
 
        // TO SHOW IMMIDIATELY WHEN WE PROCEED TO DASHBOARD APPLICATION FORM
