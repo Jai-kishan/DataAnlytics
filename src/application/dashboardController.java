@@ -88,10 +88,10 @@ public class dashboardController implements Initializable {
    private BarChart<?, ?> home_totalEnrolledChart;
 
    @FXML
-   private AreaChart<?, ?> home_totalFemaleChart;
+   private TableView<studentData> home_totalFemaleChart;
 
    @FXML
-   private LineChart<?, ?> home_totalMaleChart;
+   private TableView<studentData> home_totalMaleChart;
 
    @FXML
    private AnchorPane addStudents_form;
@@ -317,53 +317,53 @@ public class dashboardController implements Initializable {
 
    public void homeDisplayFemaleEnrolledChart() {
 
-       home_totalFemaleChart.getData().clear();
+    //    home_totalFemaleChart.getData().clear();
 
-       String sql = "SELECT date, COUNT(id) FROM student WHERE  course = 'pass' GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 5";
+    //    String sql = "SELECT date, COUNT(id) FROM student WHERE  course = 'pass' GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 5";
 
-       connect = database.connectDb();
+    //    connect = database.connectDb();
 
-       try {
-           XYChart.Series chart = new XYChart.Series();
+    //    try {
+    //        XYChart.Series chart = new XYChart.Series();
 
-           prepare = connect.prepareStatement(sql);
-           result = prepare.executeQuery();
+    //        prepare = connect.prepareStatement(sql);
+    //        result = prepare.executeQuery();
 
-           while (result.next()) {
-               chart.getData().add(new XYChart.Data(result.getString(1), result.getInt(2)));
-           }
+    //        while (result.next()) {
+    //            chart.getData().add(new XYChart.Data(result.getString(1), result.getInt(2)));
+    //        }
 
-           home_totalFemaleChart.getData().add(chart);
+    //        home_totalFemaleChart.getData().add(chart);
 
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
+    //    } catch (Exception e) {
+    //        e.printStackTrace();
+    //    }
 
    }
 
    public void homeDisplayEnrolledMaleChart() {
 
-       home_totalMaleChart.getData().clear();
+    //    home_totalMaleChart.getData().clear();
 
-       String sql = "SELECT date, COUNT(id) FROM student WHERE course = 'pass' GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 5";
+    //    String sql = "SELECT date, COUNT(id) FROM student WHERE course = 'pass' GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 5";
 
-       connect = database.connectDb();
+    //    connect = database.connectDb();
 
-       try {
-           XYChart.Series chart = new XYChart.Series();
+    //    try {
+    //        XYChart.Series chart = new XYChart.Series();
 
-           prepare = connect.prepareStatement(sql);
-           result = prepare.executeQuery();
+    //        prepare = connect.prepareStatement(sql);
+    //        result = prepare.executeQuery();
 
-           while (result.next()) {
-               chart.getData().add(new XYChart.Data(result.getString(1), result.getInt(2)));
-           }
+    //        while (result.next()) {
+    //            chart.getData().add(new XYChart.Data(result.getString(1), result.getInt(2)));
+    //        }
 
-           home_totalMaleChart.getData().add(chart);
+    //        home_totalMaleChart.getData().add(chart);
 
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
+    //    } catch (Exception e) {
+    //        e.printStackTrace();
+    //    }
 
    }
 
@@ -599,7 +599,6 @@ public class dashboardController implements Initializable {
 
 public void addStudentsSearch() {
     String searchValue = addStudents_search.textProperty().getValue();
-    System.out.println("searchValue "+ searchValue);
     try {
         connect = database.connectDb();
         // Write your SQL query with a WHERE clause to filter data based on searchValue

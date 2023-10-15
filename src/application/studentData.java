@@ -39,10 +39,17 @@ public class studentData {
         this.finals = finals;
     }
 
-    public studentData(Integer postId, String firstName, String author ) {
+    public studentData(Integer postId, Integer likes, String content ) {
     this.postId = postId;
-    this.firstName = firstName;
-    this.author = author;
+    this.likes = likes;
+    this.content = content;
+}
+
+
+    public studentData(Integer postId, String share, String content ) {
+    this.postId = postId;
+    this.share = share;
+    this.content = content;
 }
 
     public Integer getStudentNum() {

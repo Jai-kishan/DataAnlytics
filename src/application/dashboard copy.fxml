@@ -189,11 +189,19 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="home_totalFemaleChart" layoutX="-65.0" layoutY="-120.0" prefHeight="280.0" prefWidth="449.0"  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <!-- <AreaChart fx:id="home_totalFemaleChart" layoutX="-65.0" layoutY="-120.0" prefHeight="280.0" prefWidth="449.0" title="Top N Likes Posts" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <xAxis>
+                                              <CategoryAxis side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis side="LEFT" />
+                                            </yAxis>
+                                          </AreaChart> -->
+                                          <TableView fx:id="addStudents_tableView" layoutX="13.0" layoutY="56.0" onMouseClicked="#addStudentsSelect" prefHeight="192.0" prefWidth="845.0">
                                              <columns>
                                                <TableColumn fx:id="addStudents_col_postId" prefWidth="75.0" text="Post ID" />
                                                <TableColumn fx:id="addStudents_col_content" prefWidth="230.0" text="Content" />
-                                               <TableColumn fx:id="addStudents_col_likes" prefWidth="145.0" text="Likes" />
+                                               <TableColumn fx:id="addStudents_col_likes" prefWidth="77.0" text="Likes" />
                                              </columns>
                                            </TableView>                                          
                                        </children>
@@ -204,11 +212,19 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="home_totalMaleChart" layoutX="-101.0" layoutY="-154.0" prefHeight="246.0" prefWidth="449.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <!-- <LineChart fx:id="home_totalMaleChart" layoutX="-101.0" layoutY="-154.0" prefHeight="246.0" prefWidth="449.0" title="Top N Share Posts" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <xAxis>
+                                              <CategoryAxis side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis side="LEFT" />
+                                            </yAxis>
+                                          </LineChart> -->
+                                          <TableView fx:id="home_totalMaleChart" layoutX="-101.0" layoutY="-154.0" onMouseClicked="#addStudentsSelect" prefHeight="246.0" prefWidth="845.0">
                                              <columns>
                                                <TableColumn fx:id="addStudents_col_postId" prefWidth="75.0" text="Post ID" />
                                                <TableColumn fx:id="addStudents_col_content" prefWidth="230.0" text="Content" />
-                                               <TableColumn fx:id="addStudents_col_share" prefWidth="145.0" text="Share" />
+                                                 <TableColumn fx:id="addStudents_col_share" prefWidth="77.0" text="Share" />
                                              </columns>
                                            </TableView>
 
