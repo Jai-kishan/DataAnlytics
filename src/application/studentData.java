@@ -52,6 +52,8 @@ public class studentData {
     this.content = content;
 }
 
+
+
     public Integer getStudentNum() {
         return postId;
     }

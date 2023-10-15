@@ -187,6 +187,39 @@ public class dashboardController implements Initializable {
    private Button userProfile_updateBtn;
 
 
+
+
+
+
+   @FXML
+   private TableView<studentData> topNLikes_tableView;
+
+    @FXML
+    private TableColumn<studentData, String> topNLikes_col_postId;
+
+    @FXML
+    private TableColumn<studentData, String> topNLikes_col_content;
+
+    @FXML
+    private TableColumn<studentData, String> topNLikes_col_likes;
+
+
+
+
+   @FXML
+   private TableView<studentData> topNShare_tableView;
+
+    @FXML
+    private TableColumn<studentData, String> topNShare_col_postId;
+
+    @FXML
+    private TableColumn<studentData, String> topNShare_col_content;
+
+    @FXML
+    private TableColumn<studentData, String> topNShare_col_share;
+
+
+
     private Connection connect;
     private PreparedStatement prepare;
     private Statement statement;
@@ -315,57 +348,85 @@ public class dashboardController implements Initializable {
 
    }
 
-   public void homeDisplayFemaleEnrolledChart() {
+public void topNShare() {
 
-    //    home_totalFemaleChart.getData().clear();
+        // Set up the columns
+        topNShare_col_postId.setCellValueFactory(new PropertyValueFactory<>("studentNum"));
+        topNShare_col_content.setCellValueFactory(new PropertyValueFactory<>("content"));
+        topNShare_col_share.setCellValueFactory(new PropertyValueFactory<>("share"));
+        
+        // Fetch and display data from MySQL
+        ObservableList<studentData> data = fetchTopNShareData();
+        topNShare_tableView.setItems(data);
+    }
+    
+    private ObservableList<studentData> fetchTopNShareData() {
+        ObservableList<studentData> data = FXCollections.observableArrayList();
+        
+        try {
+            connect = database.connectDb();
+            Statement statement = connect.createStatement();
+            String query = "SELECT * FROM student order by share desc";
+            ResultSet resultSet = statement.executeQuery(query);
+            
+            while (resultSet.next()) {
+                int post_id = resultSet.getInt("post_id");
+                String share = resultSet.getString("share");
+                String content = resultSet.getString("content");
+                
+                studentData dataRow = new studentData(post_id, share, content);
+                data.add(dataRow);
+            }
+            
+            resultSet.close();
+            statement.close();
+            connect.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return data;
+    }
 
-    //    String sql = "SELECT date, COUNT(id) FROM student WHERE  course = 'pass' GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 5";
+public void topNLikes() {
 
-    //    connect = database.connectDb();
-
-    //    try {
-    //        XYChart.Series chart = new XYChart.Series();
-
-    //        prepare = connect.prepareStatement(sql);
-    //        result = prepare.executeQuery();
-
-    //        while (result.next()) {
-    //            chart.getData().add(new XYChart.Data(result.getString(1), result.getInt(2)));
-    //        }
-
-    //        home_totalFemaleChart.getData().add(chart);
-
-    //    } catch (Exception e) {
-    //        e.printStackTrace();
-    //    }
-
-   }
-
-   public void homeDisplayEnrolledMaleChart() {
-
-    //    home_totalMaleChart.getData().clear();
-
-    //    String sql = "SELECT date, COUNT(id) FROM student WHERE course = 'pass' GROUP BY date ORDER BY TIMESTAMP(date) ASC LIMIT 5";
-
-    //    connect = database.connectDb();
-
-    //    try {
-    //        XYChart.Series chart = new XYChart.Series();
-
-    //        prepare = connect.prepareStatement(sql);
-    //        result = prepare.executeQuery();
-
-    //        while (result.next()) {
-    //            chart.getData().add(new XYChart.Data(result.getString(1), result.getInt(2)));
-    //        }
-
-    //        home_totalMaleChart.getData().add(chart);
-
-    //    } catch (Exception e) {
-    //        e.printStackTrace();
-    //    }
-
-   }
+        // Set up the columns
+        topNLikes_col_postId.setCellValueFactory(new PropertyValueFactory<>("studentNum"));
+        topNLikes_col_content.setCellValueFactory(new PropertyValueFactory<>("content"));
+        topNLikes_col_likes.setCellValueFactory(new PropertyValueFactory<>("likes"));
+        
+        // Fetch and display data from MySQL
+        ObservableList<studentData> data = fetchTopNLikesData();
+        topNLikes_tableView.setItems(data);
+    }
+    
+    private ObservableList<studentData> fetchTopNLikesData() {
+        ObservableList<studentData> data = FXCollections.observableArrayList();
+        
+        try {
+            connect = database.connectDb();
+            Statement statement = connect.createStatement();
+            String query = "SELECT * FROM student order by likes desc";
+            ResultSet resultSet = statement.executeQuery(query);
+            
+            while (resultSet.next()) {
+                int post_id = resultSet.getInt("post_id");
+                int likes = resultSet.getInt("likes");
+                String content = resultSet.getString("content");
+                
+                studentData dataRow = new studentData(post_id, likes, content);
+                data.add(dataRow);
+            }
+            
+            resultSet.close();
+            statement.close();
+            connect.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return data;
+    }
 
    public void addStudentsAdd() {
 
@@ -895,8 +956,9 @@ public void addStudentsSearch() {
            homeDisplayTotalEnrolledStudents();
            homeDisplayMaleEnrolled();
            homeDisplayFemaleEnrolled();
-           homeDisplayEnrolledMaleChart();
-           homeDisplayFemaleEnrolledChart();
+           topNLikes();
+           topNShare();
+        //    homeDisplayFemaleEnrolledChart();
            homeDisplayTotalEnrolledChart();
 
        } else if (event.getSource() == addStudents_btn) {
@@ -943,8 +1005,9 @@ public void addStudentsSearch() {
        homeDisplayTotalEnrolledStudents();
        homeDisplayMaleEnrolled();
        homeDisplayFemaleEnrolled();
-       homeDisplayEnrolledMaleChart();
-       homeDisplayFemaleEnrolledChart();
+       topNLikes();
+       topNShare();
+    //    homeDisplayFemaleEnrolledChart();
        homeDisplayTotalEnrolledChart();
 
        // TO SHOW IMMIDIATELY WHEN WE PROCEED TO DASHBOARD APPLICATION FORM
