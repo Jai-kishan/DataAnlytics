@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -595,41 +596,54 @@ public class dashboardController implements Initializable {
        }
    } //WHILE WE INSERT THE DATA ON STUDENT, WE SHOULD INSERT ALSO THE DATA TO STUDENT_GRADE
 
-   public void addStudentsSearch() {
 
-       FilteredList<studentData> filter = new FilteredList<>(addStudentsListD, e -> true);
+public void addStudentsSearch() {
+    String searchValue = addStudents_search.textProperty().getValue();
+    System.out.println("searchValue "+ searchValue);
+    try {
+        connect = database.connectDb();
+        // Write your SQL query with a WHERE clause to filter data based on searchValue
+        String sql = "SELECT * FROM student WHERE post_id LIKE ? OR firstName LIKE ? OR author LIKE ?";
+        PreparedStatement preparedStatement = connect.prepareStatement(sql);
+        preparedStatement.setString(1, "%" + searchValue + "%");
+        preparedStatement.setString(2, "%" + searchValue + "%");
+        preparedStatement.setString(3, "%" + searchValue + "%");
 
-       addStudents_search.textProperty().addListener((Observable, oldValue, newValue) -> {
+        // Execute the query and retrieve the results
+        ResultSet resultSet = preparedStatement.executeQuery();
 
-           filter.setPredicate(predicateStudentData -> {
+        // Create a list to store the search results
+        List<studentData> searchResults = new ArrayList<>();
 
-               if (newValue == null || newValue.isEmpty()) {
-                   return true;
-               }
+        while (resultSet.next()) {
+            // Create studentData objects and add them to the searchResults list
+            studentData data = new studentData(
+                resultSet.getInt("post_id"),
+                        resultSet.getInt("likes"),
+                       resultSet.getString("course"),
+                       resultSet.getString("firstName"),
+                       resultSet.getString("author"),
+                       resultSet.getString("content"),
+                       resultSet.getDate("birth"),
+                       resultSet.getString("share"),
+                       resultSet.getString("image")                
+            );
+            searchResults.add(data);
+        }
 
-               String searchKey = newValue.toLowerCase();
-                System.out.println("searchKey" + searchKey);
-               if (predicateStudentData.getStudentNum().toString().contains(searchKey)) {
-                    System.out.println("searchKey" + searchKey);
-                   return true;
-               } else if (predicateStudentData.getFirstName().toLowerCase().contains(searchKey)) {
-                   System.out.println("searchKey" + searchKey);
-                   return true;
-               } else if (predicateStudentData.getAuthor().toLowerCase().contains(searchKey)) {
-                    System.out.println("searchKey" + searchKey);
-                   return true;
-               } else {
-                   return false;
-               }
-           });
-       });
+        // Close the database resources
+        resultSet.close();
+        preparedStatement.close();
+        connect.close();
 
-       SortedList<studentData> sortList = new SortedList<>(filter);
+        // Update the TableView with the search results
+        ObservableList<studentData> searchResultsList = FXCollections.observableArrayList(searchResults);
+        addStudents_tableView.setItems(searchResultsList);
 
-       sortList.comparatorProperty().bind(addStudents_tableView.comparatorProperty());
-       addStudents_tableView.setItems(sortList);
-
-   }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 
 
 //    NOW WE NEED THE COURSE, SO LETS WORK NOW THE AVAILABLE COURSE FORM : ) 
@@ -688,7 +702,7 @@ public class dashboardController implements Initializable {
 
        studentData studentD = addStudents_tableView.getSelectionModel().getSelectedItem();
        int num = addStudents_tableView.getSelectionModel().getSelectedIndex();
-
+        System.out.println("num---" +  num);
        if ((num - 1) < -1) {
            return;
        }
@@ -696,7 +710,6 @@ public class dashboardController implements Initializable {
        addStudents_studentNum.setText(String.valueOf(studentD.getStudentNum()));
        addStudents_firstName.setText(studentD.getFirstName());
        addStudents_likes.setText(String.valueOf(studentD.getLikes()));
-
        addStudents_author.setText(studentD.getAuthor());
        addStudents_content.setText(studentD.getContent());
        addStudents_pub_date.setValue(LocalDate.parse(String.valueOf(studentD.getBirth())));

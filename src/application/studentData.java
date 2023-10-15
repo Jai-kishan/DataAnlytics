@@ -39,6 +39,12 @@ public class studentData {
         this.finals = finals;
     }
 
+    public studentData(Integer postId, String firstName, String author ) {
+    this.postId = postId;
+    this.firstName = firstName;
+    this.author = author;
+}
+
     public Integer getStudentNum() {
         return postId;
     }
@@ -57,7 +63,7 @@ public class studentData {
     }
 
     public String getAuthor() {
-        return author;
+                return author;
     }
 
     public String getContent() {
