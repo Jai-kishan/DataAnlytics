@@ -81,7 +81,24 @@
                                  <graphic>
                                     <FontAwesomeIcon fill="WHITE" glyphName="USER" size="1.5em" />
                                  </graphic>
-                              </Button>                              
+                              </Button> 
+
+                              <Button fx:id="subscribeButton" layoutX="12.0" layoutY="462.0" mnemonicParsing="false" onAction="#VIPSubscription" stylesheets="@dashboardDesign.css">
+                                 <graphic>
+                                     <FontAwesomeIcon fill="WHITE" glyphName="THUMBS_UP" size="2em" />
+                                 </graphic>
+                                 <styleClass>
+                                     <String fx:value="subscription" />
+                                     <String fx:value="shadow" />
+                                 </styleClass>
+                             </Button>
+                             <Label layoutX="58.0" layoutY="471.0" text="Subscribe" textFill="WHITE">
+                              <font>
+                                 <Font name="Tahoma" size="15.0" />
+                              </font>
+                           </Label>
+                              
+
                               <Button fx:id="logout" layoutX="12.0" layoutY="509.0" mnemonicParsing="false" onAction="#logout" stylesheets="@dashboardDesign.css">
                                  <graphic>
                                     <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2em" />
@@ -91,6 +108,8 @@
                                     <String fx:value="shadow" />
                                  </styleClass>
                               </Button>
+
+
                               <Label layoutX="58.0" layoutY="516.0" text="Sign Out" textFill="WHITE">
                                  <font>
                                     <Font name="Tahoma" size="15.0" />
@@ -308,7 +327,14 @@
                                           <Button fx:id="addStudents_insertBtn" layoutY="109.0" mnemonicParsing="false" onAction="#addStudentsInsertImage" prefHeight="40.0" prefWidth="120.0" styleClass="insert-btn" stylesheets="@dashboardDesign.css" text="Insert" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="postData_exportBtn" layoutX="710.0" layoutY="13.0" mnemonicParsing="false" onAction="#expostPostData" prefHeight="35.0" prefWidth="85.0" styleClass="export-btn" stylesheets="@dashboardDesign.css" text="Export" />
+
+
+                                    
+                                    <Button fx:id="postData_exportBtn" layoutX="710.0" layoutY="13.0" mnemonicParsing="false" onAction="#expostPostData" prefHeight="30.0" prefWidth="120.0" styleClass="export-btn" stylesheets="@dashboardDesign.css" text="Export">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="DOWNLOAD" size="2em" />
+                                      </graphic>
+                                    </Button> 
                                     <Button fx:id="addStudents_addBtn" layoutX="765.0" layoutY="480.0" mnemonicParsing="false" onAction="#addStudentsAdd" prefHeight="35.0" prefWidth="85.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Add" />
                                     <Button fx:id="addStudents_updateBtn" layoutX="669.0" layoutY="480.0" mnemonicParsing="false" onAction="#addStudentsUpdate" prefHeight="35.0" prefWidth="85.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Update" />
                                     <Button fx:id="addStudents_deleteBtn" layoutX="546.0" layoutY="480.0" mnemonicParsing="false" onAction="#addStudentsDelete" prefHeight="35.0" prefWidth="85.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Delete" />

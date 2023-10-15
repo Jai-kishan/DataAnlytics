@@ -194,4 +194,19 @@
     -fx-background-color:linear-gradient(to bottom, #277bd0, #1b6fa4);
 
 }
+
+
+
+
+.subscription{
+    -fx-background-color:#2c84bf;
+    -fx-background-radius:10px;
+    -fx-cursor:hand;
+}
+.subscription:hover{
+    -fx-background-color:#1593e7;
+}
+
+
+
 /* NOW FINALLY WE FINISHED THE COMPONENTS, NOW LETS NAME ALL OF THEM : )  OLD color  #2d658c, #2ca772*/ 

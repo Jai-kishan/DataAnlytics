@@ -225,6 +225,8 @@ public class dashboardController implements Initializable {
     private TableColumn<studentData, String> topNShare_col_share;
 
 
+    @FXML
+    private Button subscribeButton;
 
     private Connection connect;
     private PreparedStatement prepare;
@@ -233,29 +235,119 @@ public class dashboardController implements Initializable {
 
     private Image image;
 
-    public class courseData {
-        
-        private String course;
-        private String description;
-        private String degree;
-        
-        public courseData(String course, String description, String degree){
-            this.course = course;
-            this.description = description;
-            this.degree = degree;
+
+    public void VIPSubscription (){
+
+        String username = getData.username;
+        String email = getData.email;        
+        boolean isVIP = checkVIPStatus(username, email);
+
+        if (!isVIP) {
+            boolean userWantsToUpgrade = askUserToUpgrade();
+            if (userWantsToUpgrade) {
+                upgradeToVIP(username, email);
+                askUserToLogoutAndLogin();
+            }
         }
-        public String getCourse(){
-            return course;
+    }
+
+    public boolean checkVIPStatus(String username, String email) {
+        connect = database.connectDb();
+        try  {
+            String query = "SELECT is_VIP FROM users WHERE username = ? and email_id = ?";
+            try (PreparedStatement statement = connect.prepareStatement(query)) {
+                statement.setString(1, username);
+                statement.setString(2, email);
+                try (ResultSet result = statement.executeQuery()) {
+                    if (result.next()) {
+                        Integer vipStatus = result.getInt("is_VIP");
+                        System.out.println("vipStatus " + vipStatus);
+                        if (vipStatus == 0){
+                            return false;
+                        }else {
+                                Alert alert;
+                                alert = new Alert(AlertType.INFORMATION);
+                                alert.setTitle("Information Message");
+                                alert.setHeaderText(null);
+                                alert.setContentText("You have already subscribed...!");
+                                alert.showAndWait();
+
+                            return true;
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        public String getDescription(){
-            return description;
+        return false;
+    }
+
+    public void upgradeToVIP(String username, String email) {
+        connect = database.connectDb();
+        try {
+            String query = "UPDATE users SET is_VIP = 1 WHERE username = ? and email_id =  ? ";
+            try (PreparedStatement statement = connect.prepareStatement(query)) {
+                statement.setString(1, username);
+                statement.setString(2, email);                
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        public String getDegree(){
-            return degree;
+    }
+
+    public  boolean askUserToUpgrade() {
+        Alert alert;
+        alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Would you like to subscribe to the application for a monthly fee of $0?");
+
+        // Show the dialog and wait for a user response
+        Optional<ButtonType> result = alert.showAndWait();
+
+        // Check if the user clicked OK (or Yes, depending on the locale)
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // User confirmed, you can proceed with the action
+                   alert = new Alert(AlertType.INFORMATION);
+                   alert.setTitle("Information Message");
+                   alert.setHeaderText(null);
+                   alert.setContentText("Successfully Subscribed!\nPlease log out and log in again to access VIP functionalities");
+                   alert.showAndWait();
+                   return true;
+        } else {
+            return false;
         }
-        
-    }    
-    
+
+
+
+
+
+
+
+        // // Implement UI or user interaction to ask if they want to upgrade
+        // // Return true if they agree to upgrade, false otherwise
+        // return false;
+    }
+
+    public void askUserToLogoutAndLogin() {
+        // Display a message asking the user to log out and log in again
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
    public void homeDisplayTotalEnrolledStudents() {
 
