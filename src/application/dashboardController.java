@@ -107,10 +107,10 @@ public class dashboardController implements Initializable {
     private PieChart PieChart_ShareDistribution;
 
     @FXML
-    private TableView<studentData> home_totalFemaleChart;
+    private TableView<postsData> home_totalFemaleChart;
 
     @FXML
-    private TableView<studentData> home_totalMaleChart;
+    private TableView<postsData> home_totalMaleChart;
 
     @FXML
     private AnchorPane addPosts_form;
@@ -119,25 +119,25 @@ public class dashboardController implements Initializable {
     private TextField addPosts_search;
 
     @FXML
-    private TableView<studentData> addPosts_tableView;
+    private TableView<postsData> addPosts_tableView;
 
     @FXML
-    private TableColumn<studentData, String> addPosts_col_postId;
+    private TableColumn<postsData, String> addPosts_col_postId;
 
     @FXML
-    private TableColumn<studentData, String> addPosts_col_likes;
+    private TableColumn<postsData, String> addPosts_col_likes;
 
     @FXML
-    private TableColumn<studentData, String> addPosts_col_author;
+    private TableColumn<postsData, String> addPosts_col_author;
 
     @FXML
-    private TableColumn<studentData, String> addPosts_col_content;
+    private TableColumn<postsData, String> addPosts_col_content;
 
     @FXML
-    private TableColumn<studentData, String> addPosts_col_pub_date;
+    private TableColumn<postsData, String> addPosts_col_pub_date;
 
     @FXML
-    private TableColumn<studentData, String> addPosts_col_share;
+    private TableColumn<postsData, String> addPosts_col_share;
 
     @FXML
     private TextField addPosts_studentNum;
@@ -203,34 +203,34 @@ public class dashboardController implements Initializable {
     private Button userProfile_updateBtn;
 
     @FXML
-    private TableView<studentData> topNLikes_tableView;
+    private TableView<postsData> topNLikes_tableView;
 
     @FXML
-    private TableColumn<studentData, String> topNLikes_col_postId;
+    private TableColumn<postsData, String> topNLikes_col_postId;
 
     @FXML
-    private TableColumn<studentData, String> topNLikes_col_content;
+    private TableColumn<postsData, String> topNLikes_col_content;
 
     @FXML
-    private TableColumn<studentData, String> topNLikes_col_likes;
+    private TableColumn<postsData, String> topNLikes_col_likes;
 
     @FXML
-    private TableView<studentData> topNShare_tableView;
+    private TableView<postsData> topNShare_tableView;
 
     @FXML
-    private TableColumn<studentData, String> topNShare_col_postId;
+    private TableColumn<postsData, String> topNShare_col_postId;
 
     @FXML
-    private TableColumn<studentData, String> topNShare_col_content;
+    private TableColumn<postsData, String> topNShare_col_content;
 
     @FXML
-    private TableColumn<studentData, String> topNShare_col_share;
+    private TableColumn<postsData, String> topNShare_col_share;
 
     @FXML
     private Button subscribeButton;
 
     @FXML
-    private TableView<studentData> tableView;
+    private TableView<postsData> tableView;
 
     private Connection connect;
     private PreparedStatement prepare;
@@ -376,7 +376,7 @@ public class dashboardController implements Initializable {
             String sql = "SELECT CASE WHEN `share` BETWEEN 0 AND 99 THEN '0-99 Shares' "
                     + "WHEN `share` BETWEEN 100 AND 999 THEN '100-999 Shares' "
                     + "WHEN `share` >= 1000 THEN '1000+ Shares' END AS ShareCategory, "
-                    + "COUNT(*) AS Count FROM student GROUP BY ShareCategory";
+                    + "COUNT(*) AS Count FROM posts GROUP BY ShareCategory";
 
             connect = database.connectDb();
             try {
@@ -433,17 +433,17 @@ public class dashboardController implements Initializable {
         topNShare_col_share.setCellValueFactory(new PropertyValueFactory<>("share"));
 
         // Fetch and display data from MySQL
-        ObservableList<studentData> data = fetchTopNShareData();
+        ObservableList<postsData> data = fetchTopNShareData();
         topNShare_tableView.setItems(data);
     }
 
-    private ObservableList<studentData> fetchTopNShareData() {
-        ObservableList<studentData> data = FXCollections.observableArrayList();
+    private ObservableList<postsData> fetchTopNShareData() {
+        ObservableList<postsData> data = FXCollections.observableArrayList();
 
         try {
             connect = database.connectDb();
             Statement statement = connect.createStatement();
-            String query = "SELECT * FROM student order by share desc";
+            String query = "SELECT * FROM posts order by share desc";
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
@@ -451,7 +451,7 @@ public class dashboardController implements Initializable {
                 String share = resultSet.getString("share");
                 String content = resultSet.getString("content");
 
-                studentData dataRow = new studentData(post_id, share, content);
+                postsData dataRow = new postsData(post_id, share, content);
                 data.add(dataRow);
             }
 
@@ -474,17 +474,17 @@ public class dashboardController implements Initializable {
         topNLikes_col_likes.setCellValueFactory(new PropertyValueFactory<>("likes"));
 
         // Fetch and display data from MySQL
-        ObservableList<studentData> data = fetchTopNLikesData();
+        ObservableList<postsData> data = fetchTopNLikesData();
         topNLikes_tableView.setItems(data);
     }
 
-    private ObservableList<studentData> fetchTopNLikesData() {
-        ObservableList<studentData> data = FXCollections.observableArrayList();
+    private ObservableList<postsData> fetchTopNLikesData() {
+        ObservableList<postsData> data = FXCollections.observableArrayList();
 
         try {
             connect = database.connectDb();
             Statement statement = connect.createStatement();
-            String query = "SELECT * FROM student order by likes desc";
+            String query = "SELECT * FROM posts order by likes desc";
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
@@ -492,7 +492,7 @@ public class dashboardController implements Initializable {
                 int likes = resultSet.getInt("likes");
                 String content = resultSet.getString("content");
 
-                studentData dataRow = new studentData(post_id, likes, content);
+                postsData dataRow = new postsData(post_id, likes, content);
                 data.add(dataRow);
             }
 
@@ -516,17 +516,17 @@ public class dashboardController implements Initializable {
         if (file != null) {
             try (FileWriter writer = new FileWriter(file)) {
 
-                ObservableList<TableColumn<studentData, ?>> columns = addPosts_tableView.getColumns();
+                ObservableList<TableColumn<postsData, ?>> columns = addPosts_tableView.getColumns();
 
                 // Write the column headers to the CSV file
-                for (TableColumn<studentData, ?> column : columns) {
+                for (TableColumn<postsData, ?> column : columns) {
                     writer.write(column.getText() + ",");
                 }
                 writer.write("\n");
 
                 // Write the data from the table to the CSV file
-                for (studentData item : addPosts_tableView.getItems()) {
-                    for (TableColumn<studentData, ?> column : columns) {
+                for (postsData item : addPosts_tableView.getItems()) {
+                    for (TableColumn<postsData, ?> column : columns) {
                         Object cellData = column.getCellData(item);
                         writer.write(cellData + ",");
                     }
@@ -581,7 +581,7 @@ public class dashboardController implements Initializable {
                 int lineCount = 1; // To keep track of the line number for error reporting
 
                 System.out.println("headers " + headers);
-                List<studentData> posts = new ArrayList<>();
+                List<postsData> posts = new ArrayList<>();
 
                 while ((line = br.readLine()) != null) {
                     String[] data = line.split(",");
@@ -604,7 +604,7 @@ public class dashboardController implements Initializable {
                     String share = data[5];
                     System.out.println("I'm in the table  -  " + data[0].toString());
 
-                    // studentData post = new studentData(id, author, content,
+                    // postsData post = new postsData(id, author, content,
                     // publishDate, likes, share);
                     // posts.add(post);
                 }
@@ -669,7 +669,7 @@ public class dashboardController implements Initializable {
 
     public void addPostsAdd() {
 
-        String insertData = "INSERT INTO student "
+        String insertData = "INSERT INTO posts "
                 + "(post_id,likes,author,content,birth,share,image,date) "
                 + "VALUES(?,?,?,?,?,?,?,?)";
 
@@ -692,7 +692,7 @@ public class dashboardController implements Initializable {
                 alert.showAndWait();
             } else {
                 // CHECK IF THE STUDENTNUMBER IS ALREADY EXIST
-                String checkData = "SELECT post_id FROM student WHERE post_id = '"
+                String checkData = "SELECT post_id FROM posts WHERE post_id = '"
                         + addPosts_studentNum.getText() + "'";
 
                 statement = connect.createStatement();
@@ -746,7 +746,7 @@ public class dashboardController implements Initializable {
         String uri = getData.path;
         uri = uri.replace("\\", "\\\\");
 
-        String updateData = "UPDATE student SET "
+        String updateData = "UPDATE posts SET "
                 + "likes = '" + addPosts_likes.getText()
                 + "', author = '" + addPosts_author.getText()
                 + "', content = '" + addPosts_content.getText()
@@ -806,7 +806,7 @@ public class dashboardController implements Initializable {
 
     public void addPostsDelete() {
 
-        String deleteData = "DELETE FROM student WHERE post_id = '"
+        String deleteData = "DELETE FROM posts WHERE post_id = '"
                 + addPosts_studentNum.getText() + "'";
 
         connect = database.connectDb();
@@ -896,7 +896,7 @@ public class dashboardController implements Initializable {
         try {
             connect = database.connectDb();
             // Write your SQL query with a WHERE clause to filter data based on searchValue
-            String sql = "SELECT * FROM student WHERE post_id LIKE ? OR author LIKE ?";
+            String sql = "SELECT * FROM posts WHERE post_id LIKE ? OR author LIKE ?";
             PreparedStatement preparedStatement = connect.prepareStatement(sql);
             preparedStatement.setString(1, "%" + searchValue + "%");
             preparedStatement.setString(2, "%" + searchValue + "%");
@@ -906,11 +906,11 @@ public class dashboardController implements Initializable {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             // Create a list to store the search results
-            List<studentData> searchResults = new ArrayList<>();
+            List<postsData> searchResults = new ArrayList<>();
 
             while (resultSet.next()) {
-                // Create studentData objects and add them to the searchResults list
-                studentData data = new studentData(
+                // Create postsData objects and add them to the searchResults list
+                postsData data = new postsData(
                         resultSet.getInt("post_id"),
                         resultSet.getInt("likes"),
                         resultSet.getString("author"),
@@ -927,7 +927,7 @@ public class dashboardController implements Initializable {
             connect.close();
 
             // Update the TableView with the search results
-            ObservableList<studentData> searchResultsList = FXCollections.observableArrayList(searchResults);
+            ObservableList<postsData> searchResultsList = FXCollections.observableArrayList(searchResults);
             addPosts_tableView.setItems(searchResultsList);
 
         } catch (SQLException e) {
@@ -936,21 +936,21 @@ public class dashboardController implements Initializable {
     }
 
     // LETS WORK FIRST THE ADD STUDENTS FORM : )
-    public ObservableList<studentData> addPostsListData() {
+    public ObservableList<postsData> addPostsListData() {
 
-        ObservableList<studentData> listStudents = FXCollections.observableArrayList();
+        ObservableList<postsData> listStudents = FXCollections.observableArrayList();
 
-        String sql = "SELECT * FROM student";
+        String sql = "SELECT * FROM posts";
 
         connect = database.connectDb();
 
         try {
-            studentData studentD;
+            postsData studentD;
             prepare = connect.prepareStatement(sql);
             result = prepare.executeQuery();
 
             while (result.next()) {
-                studentD = new studentData(result.getInt("post_id"),
+                studentD = new postsData(result.getInt("post_id"),
                         result.getInt("likes"),
                         result.getString("author"),
                         result.getString("content"),
@@ -967,7 +967,7 @@ public class dashboardController implements Initializable {
         return listStudents;
     }
 
-    private ObservableList<studentData> addPostsListD;
+    private ObservableList<postsData> addPostsListD;
 
     public void addPostsShowListData() {
         addPostsListD = addPostsListData();
@@ -985,7 +985,7 @@ public class dashboardController implements Initializable {
 
     public void addPostsSelect() {
 
-        studentData studentD = addPosts_tableView.getSelectionModel().getSelectedItem();
+        postsData studentD = addPosts_tableView.getSelectionModel().getSelectedItem();
         int num = addPosts_tableView.getSelectionModel().getSelectedIndex();
         if ((num - 1) < -1) {
             return;
