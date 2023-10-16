@@ -71,6 +71,15 @@ public class dashboardController implements Initializable {
     private AnchorPane main_form;
 
     @FXML
+    private AnchorPane pieChartCard;
+
+    @FXML
+    private AnchorPane topNLikes;
+
+    @FXML
+    private AnchorPane topNShare;
+
+    @FXML
     private Button postsData_importBtn;
 
     @FXML
@@ -226,10 +235,8 @@ public class dashboardController implements Initializable {
     @FXML
     private Button subscribeButton;
 
-
     @FXML
     private TableView<studentData> tableView;
-
 
     private Connection connect;
     private PreparedStatement prepare;
@@ -242,7 +249,7 @@ public class dashboardController implements Initializable {
 
         String username = getData.username;
         String email = getData.email;
-        boolean isVIP = checkVIPStatus(username, email);
+        boolean isVIP = checkVIPStatus(username, email, true);
 
         if (!isVIP) {
             boolean userWantsToUpgrade = askUserToUpgrade();
@@ -253,7 +260,7 @@ public class dashboardController implements Initializable {
         }
     }
 
-    public boolean checkVIPStatus(String username, String email) {
+    public boolean checkVIPStatus(String username, String email, boolean type) {
         connect = database.connectDb();
         try {
             String query = "SELECT is_VIP FROM users WHERE username = ? and email_id = ?";
@@ -265,14 +272,18 @@ public class dashboardController implements Initializable {
                         Integer vipStatus = result.getInt("is_VIP");
                         System.out.println("vipStatus " + vipStatus);
                         if (vipStatus == 0) {
+                            System.out.println("vipStatus return false");
+
                             return false;
                         } else {
-                            Alert alert;
-                            alert = new Alert(AlertType.INFORMATION);
-                            alert.setTitle("Information Message");
-                            alert.setHeaderText(null);
-                            alert.setContentText("You have already subscribed...!");
-                            alert.showAndWait();
+                            if (type) {
+                                Alert alert;
+                                alert = new Alert(AlertType.INFORMATION);
+                                alert.setTitle("Information Message");
+                                alert.setHeaderText(null);
+                                alert.setContentText("You have already subscribed...!");
+                                alert.showAndWait();
+                            }
 
                             return true;
                         }
@@ -332,41 +343,94 @@ public class dashboardController implements Initializable {
         // Display a message asking the user to log out and log in again
     }
 
-
-
     public void PieChartShareDistribution() {
 
-        // Assuming you have a PieChart object defined as PieChart_ShareDistribution
-        PieChart_ShareDistribution.getData().clear();
+        String username = getData.username;
+        String email = getData.email;
+        System.out.println("I 'm in pie");
+        boolean isVIP = checkVIPStatus(username, email, false);
+        System.out.println("isVIP status" + isVIP);
+        if (isVIP) {
+            pieChartCard.setVisible(true);
 
-        // String sql = "SELECT CASE WHEN `share` BETWEEN 0 AND 99 THEN '0-99 Shares'
-        // WHEN `share` BETWEEN 100 AND 999 THEN '100-999 Shares' WHEN `share` >= 1000
-        // THEN '1000+ Shares' END AS ShareCategory, COUNT(*) AS Count FROM student
-        // GROUP BY ShareCategory;";
-        String sql = "SELECT CASE WHEN `share` BETWEEN 0 AND 99 THEN '0-99 Shares' "
-                + "WHEN `share` BETWEEN 100 AND 999 THEN '100-999 Shares' "
-                + "WHEN `share` >= 1000 THEN '1000+ Shares' END AS ShareCategory, "
-                + "COUNT(*) AS Count FROM student GROUP BY ShareCategory";
-        connect = database.connectDb();
-        try {
+            topNLikes.setPrefHeight(198);
+            topNLikes.setPrefWidth(449);
+            ;
+            topNLikes.setLayoutY(52.0);
+            topNLikes.setLayoutX(14.0);
 
-            PieChart_ShareDistribution.setTitle("Share Distribution");
+            topNLikes_tableView.setPrefHeight(280);
+            topNLikes_tableView.setPrefWidth(449);
 
-            prepare = connect.prepareStatement(sql);
-            result = prepare.executeQuery();
+            topNLikes_col_postId.setPrefWidth(75);
+            topNLikes_col_content.setPrefWidth(230);
+            topNLikes_col_likes.setPrefWidth(145);
 
-            while (result.next()) {
-                System.out.println();
-                PieChart_ShareDistribution.getData().add(new PieChart.Data(result.getString(1), result.getInt(2)));
+            // Adjusting the share table
+            topNShare.setPrefHeight(197);
+            topNShare.setPrefWidth(449);
+            topNShare.setLayoutY(315.0);
+            topNShare.setLayoutX(14.0);
+
+            topNShare_tableView.setPrefHeight(246.0);
+            topNShare_tableView.setPrefWidth(449.0);
+
+            topNShare_col_postId.setPrefWidth(75);
+            topNShare_col_content.setPrefWidth(230);
+            topNShare_col_share.setPrefWidth(145);
+
+            PieChart_ShareDistribution.getData().clear();
+
+            String sql = "SELECT CASE WHEN `share` BETWEEN 0 AND 99 THEN '0-99 Shares' "
+                    + "WHEN `share` BETWEEN 100 AND 999 THEN '100-999 Shares' "
+                    + "WHEN `share` >= 1000 THEN '1000+ Shares' END AS ShareCategory, "
+                    + "COUNT(*) AS Count FROM student GROUP BY ShareCategory";
+
+            connect = database.connectDb();
+            try {
+                prepare = connect.prepareStatement(sql);
+                result = prepare.executeQuery();
+
+                while (result.next()) {
+                    System.out.println();
+                    PieChart_ShareDistribution.getData().add(new PieChart.Data(result.getString(1), result.getInt(2)));
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        } else {
+            pieChartCard.setVisible(false);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            topNLikes.setPrefHeight(198);
+            topNLikes.setPrefWidth(667);
+            ;
+            topNLikes.setLayoutY(52.0);
+            topNLikes.setLayoutX(101.0);
+
+            topNLikes_tableView.setPrefHeight(280);
+            topNLikes_tableView.setPrefWidth(449);
+
+            topNLikes_col_postId.setPrefWidth(150);
+            topNLikes_col_content.setPrefWidth(300);
+            topNLikes_col_likes.setPrefWidth(220);
+
+            // Adjusting the share table
+            topNShare.setPrefHeight(198);
+            topNShare.setPrefWidth(667);
+            topNShare.setLayoutY(315.0);
+            topNShare.setLayoutX(98.0);
+
+            topNShare_tableView.setPrefHeight(246.0);
+            topNShare_tableView.setPrefWidth(449.0);
+
+            topNShare_col_postId.setPrefWidth(150);
+            topNShare_col_content.setPrefWidth(300);
+            topNShare_col_share.setPrefWidth(220);
+
         }
 
     }
-
-
 
     // USING THIS METHOD WE ARE SHOWING THE TOP N SHARE DATA
     public void topNShare() {
@@ -409,8 +473,6 @@ public class dashboardController implements Initializable {
         return data;
     }
 
-
-
     // USING THIS METHOD WE ARE SHOWING THE TOP N LIKES DATA
     public void topNLikes() {
 
@@ -452,9 +514,6 @@ public class dashboardController implements Initializable {
         return data;
     }
 
-
-
-
     public void exportPostData() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save CSV File");
@@ -487,83 +546,98 @@ public class dashboardController implements Initializable {
         }
     }
 
-
-    private static final List<String> REQUIRED_COLUMNS = Arrays.asList("Post ID", "First Name", "Author", "Content", "Publish Date", "Likes", "Share");
+    private static final List<String> REQUIRED_COLUMNS = Arrays.asList("Post ID", "First Name", "Author", "Content",
+            "Publish Date", "Likes", "Share");
 
     public void importPostsData() throws IOException {
         Alert alert;
         System.out.println("I'm in the table");
 
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-        File selectedFile = fileChooser.showOpenDialog(null);
-        try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
-            
-            String headerLine = br.readLine(); // Read the header line
+        String username = getData.username;
+        String email = getData.email;
+        boolean isVIP = checkVIPStatus(username, email, false);
 
-            if (headerLine == null) {
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("CSV file is empty");
-                alert.showAndWait();
-            }
+        if (isVIP) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+            File selectedFile = fileChooser.showOpenDialog(null);
+            try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
 
-            String[] headers = headerLine.split(",");
+                String headerLine = br.readLine(); // Read the header line
 
-            // Check if all required columns are present
-            if (!containsRequiredColumns(headers)) {
-                // throw new InvalidCSVException("CSV file is missing one or more required columns");
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("CSV file is missing one or more required columns\nRequired Column should be:-\nPost ID,First Name,Author,Content,Publish Date,Likes,Share");
-                alert.showAndWait();                
-            }            
-
-            String line;
-            int lineCount = 1; // To keep track of the line number for error reporting
-
-            System.out.println("headers " + headers);
-            List<studentData> posts = new ArrayList<>();
-
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-
-                if (data.length != headers.length) {
-                    // throw new InvalidCSVException("Invalid number of columns on line " + lineCount);
+                if (headerLine == null) {
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Error Message");
                     alert.setHeaderText(null);
-                    alert.setContentText("Invalid number of columns on line" + lineCount);
-                    alert.showAndWait();                     
+                    alert.setContentText("CSV file is empty");
+                    alert.showAndWait();
                 }
 
-                int id = parseAndValidateInt(data[0], "Post ID", lineCount);
-                String firstName = data[1];
-                String author = data[2];
-                String content = data[3];
-                String publishDate = data[4];
-                int likes = parseAndValidateInt(data[5], "Post ID", lineCount);
-                String share = data[6];
-                System.out.println("I'm in the table  -  "+ data[0].toString());
+                String[] headers = headerLine.split(",");
 
-                // studentData post = new studentData(id, firstName, author, content, publishDate, likes, share);
-                // posts.add(post);
+                // Check if all required columns are present
+                if (!containsRequiredColumns(headers)) {
+                    // throw new InvalidCSVException("CSV file is missing one or more required
+                    // columns");
+                    alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText(
+                            "CSV file is missing one or more required columns\nRequired Column should be:-\nPost ID,First Name,Author,Content,Publish Date,Likes,Share");
+                    alert.showAndWait();
+                }
+
+                String line;
+                int lineCount = 1; // To keep track of the line number for error reporting
+
+                System.out.println("headers " + headers);
+                List<studentData> posts = new ArrayList<>();
+
+                while ((line = br.readLine()) != null) {
+                    String[] data = line.split(",");
+
+                    if (data.length != headers.length) {
+                        // throw new InvalidCSVException("Invalid number of columns on line " +
+                        // lineCount);
+                        alert = new Alert(AlertType.ERROR);
+                        alert.setTitle("Error Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Invalid number of columns on line" + lineCount);
+                        alert.showAndWait();
+                    }
+
+                    int id = parseAndValidateInt(data[0], "Post ID", lineCount);
+                    String firstName = data[1];
+                    String author = data[2];
+                    String content = data[3];
+                    String publishDate = data[4];
+                    int likes = parseAndValidateInt(data[5], "Post ID", lineCount);
+                    String share = data[6];
+                    System.out.println("I'm in the table  -  " + data[0].toString());
+
+                    // studentData post = new studentData(id, firstName, author, content,
+                    // publishDate, likes, share);
+                    // posts.add(post);
+                }
+                // return posts;
+
+                alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Information Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Successfully Post Data Inserted...!");
+                alert.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            // return posts;
-
-            alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Information Message");
+        } else {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
             alert.setHeaderText(null);
-            alert.setContentText("Successfully Post Data Inserted...!");
-            alert.showAndWait();  
-        } catch (IOException e) {
-            e.printStackTrace();
+            alert.setContentText("This Feature is available only for subscribed users");
+            alert.showAndWait();
+
         }
     }
-
-
 
     private int parseAndValidateInt(String value, String columnName, int lineCount) {
         Alert alert;
@@ -574,19 +648,19 @@ public class dashboardController implements Initializable {
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
                 alert.setContentText(columnName + " value is negative on line " + lineCount);
-                alert.showAndWait();                     
+                alert.showAndWait();
             }
             return intValue;
 
         } catch (NumberFormatException e) {
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText(columnName + " is not a valid integer on line " + lineCount);
-                alert.showAndWait();  
-                return 0;              
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText(columnName + " is not a valid integer on line " + lineCount);
+            alert.showAndWait();
+            return 0;
         }
-    }    
+    }
 
     private boolean containsRequiredColumns(String[] headers) {
         for (String columnName : REQUIRED_COLUMNS) {
@@ -602,10 +676,7 @@ public class dashboardController implements Initializable {
             }
         }
         return true;
-    }    
-
-
-
+    }
 
     public void addStudentsAdd() {
 
@@ -962,6 +1033,8 @@ public class dashboardController implements Initializable {
     }
 
     public void userProfilesUpdate() {
+        Alert alert;
+
         String checkData = "SELECT * FROM users WHERE username = '"
                 + userProfile_username.getText() + "'";
 
@@ -972,81 +1045,84 @@ public class dashboardController implements Initializable {
             prepare = connect.prepareStatement(checkData);
             result = prepare.executeQuery();
 
-            Date date = new Date();
-            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            if (result.next()) {
+                Date date = new Date();
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
-            String updateData = "UPDATE users SET "
-                    + " first_name = '" + userProfile_first_name.getText()
-                    + "', last_name = '" + userProfile_last_name.getText()
-                    + "', username = '" + userProfile_username.getText()
-                    + "', password = '" + userProfile_password.getText()
-                    + "', update_date = '" + sqlDate + "' WHERE email_id = '"
+                String updateData = "UPDATE users SET "
+                        + " first_name = '" + userProfile_first_name.getText()
+                        + "', last_name = '" + userProfile_last_name.getText()
+                        + "', username = '" + userProfile_username.getText()
+                        + "', password = '" + userProfile_password.getText()
+                        + "', update_date = '" + sqlDate + "' WHERE email_id = '"
+                        + getData.email + "'";
 
-                    // + "', update_date = '" + String.valueOf(sqlDate) + "' WHERE email_id = '"
-                    + getData.email + "'";
+                String password = userProfile_password.getText();
+                String confirmPassword = userProfile_cPassword.getText();
 
-            Alert alert;
-
-            String password = userProfile_password.getText();
-            String confirmPassword = userProfile_cPassword.getText();
-
-            if (userProfile_first_name.getText().isEmpty()
-                    || userProfile_last_name.getText().isEmpty()
-                    || userProfile_username.getText().isEmpty()
-                    || userProfile_password.getText().isEmpty()) {
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please fill all blank fields");
-                alert.showAndWait();
-
-            } else if (!password.equals(confirmPassword)) {
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Password does not match");
-                alert.showAndWait();
-            } else if (password.length() < 8) {
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Invalid Password, at least 8 characters needed");
-                alert.showAndWait();
-            }
-
-            else {
-
-                alert = new Alert(AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to UPDATE user  " + userProfile_username.getText() + "?");
-                Optional<ButtonType> option = alert.showAndWait();
-                System.out.println("updateData   :" + updateData);
-
-                if (option.get().equals(ButtonType.OK)) {
-                    statement = connect.createStatement();
-                    statement.executeUpdate(updateData);
-
-                    alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
+                if (userProfile_first_name.getText().isEmpty()
+                        || userProfile_last_name.getText().isEmpty()
+                        || userProfile_username.getText().isEmpty()
+                        || userProfile_password.getText().isEmpty()) {
+                    alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error Message");
                     alert.setHeaderText(null);
-                    alert.setContentText("Successfully Updated!");
+                    alert.setContentText("Please fill all blank fields");
                     alert.showAndWait();
 
-                    // TO UPDATE THE TABLEVIEW
-
-                } else {
-                    return;
+                } else if (!password.equals(confirmPassword)) {
+                    alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Password does not match");
+                    alert.showAndWait();
+                } else if (password.length() < 8) {
+                    alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Invalid Password, at least 8 characters needed");
+                    alert.showAndWait();
                 }
 
-            } // NOT WE ARE CLOSER TO THE ENDING PART :) LETS PROCEED TO DASHBOARD FORM
+                else {
+
+                    alert = new Alert(AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText(
+                            "Are you sure you want to UPDATE user  " + userProfile_username.getText() + "?");
+                    Optional<ButtonType> option = alert.showAndWait();
+                    System.out.println("updateData   :" + updateData);
+
+                    if (option.get().equals(ButtonType.OK)) {
+                        statement = connect.createStatement();
+                        statement.executeUpdate(updateData);
+
+                        alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Information Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Successfully Updated!");
+                        alert.showAndWait();
+
+                        // TO UPDATE THE TABLEVIEW
+
+                    } else {
+                        return;
+                    }
+
+                }
+
+            } else {
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Invalid username");
+                alert.showAndWait();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
 
     private double x = 0;
     private double y = 0;
@@ -1103,7 +1179,6 @@ public class dashboardController implements Initializable {
 
     }
 
-
     public void displayUsername() {
 
         username.setText(getData.first_name + " " + getData.last_name);
@@ -1115,11 +1190,9 @@ public class dashboardController implements Initializable {
         userProfile_cPassword.setText(getData.password);
     }
 
-
     public void defaultNav() {
         home_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3f82ae, #26bf7d);");
     }
-
 
     public void switchForm(ActionEvent event) {
         if (event.getSource() == home_btn) {
@@ -1161,7 +1234,6 @@ public class dashboardController implements Initializable {
         }
     }
 
-    
     public void close() {
         System.exit(0);
     }
