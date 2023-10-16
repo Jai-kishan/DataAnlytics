@@ -4,7 +4,6 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.sql.SQLException;
@@ -123,7 +122,6 @@ public class FXMLDocumentController implements Initializable {
     private Connection connect;
     private PreparedStatement prepare;
     private ResultSet result;
-	private Statement statement; 
 	
 //    NOW LETS CREATE OUR DATABASE : ) 
     
