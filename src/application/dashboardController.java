@@ -128,9 +128,6 @@ public class dashboardController implements Initializable {
     private TableColumn<studentData, String> addStudents_col_likes;
 
     @FXML
-    private TableColumn<studentData, String> addStudents_col_firstName;
-
-    @FXML
     private TableColumn<studentData, String> addStudents_col_author;
 
     @FXML
@@ -147,9 +144,6 @@ public class dashboardController implements Initializable {
 
     @FXML
     private TextField addStudents_likes;
-
-    @FXML
-    private TextField addStudents_firstName;
 
     @FXML
     private TextField addStudents_author;
@@ -347,9 +341,7 @@ public class dashboardController implements Initializable {
 
         String username = getData.username;
         String email = getData.email;
-        // System.out.println("I 'm in pie");
         boolean isVIP = checkVIPStatus(username, email, false);
-        // System.out.println("isVIP status" + isVIP);
         if (isVIP) {
             pieChartCard.setVisible(true);
 
@@ -546,7 +538,7 @@ public class dashboardController implements Initializable {
         }
     }
 
-    private static final List<String> REQUIRED_COLUMNS = Arrays.asList("Post ID", "First Name", "Author", "Content",
+    private static final List<String> REQUIRED_COLUMNS = Arrays.asList("Post ID", "Author", "Content",
             "Publish Date", "Likes", "Share");
 
     public void importPostsData() throws IOException {
@@ -581,7 +573,7 @@ public class dashboardController implements Initializable {
                     alert.setTitle("Error Message");
                     alert.setHeaderText(null);
                     alert.setContentText(
-                            "CSV file is missing one or more required columns\nRequired Column should be:-\nPost ID,First Name,Author,Content,Publish Date,Likes,Share");
+                            "CSV file is missing one or more required columns\nRequired Column should be:-\nPost ID,Author,Content,Publish Date,Likes,Share");
                     alert.showAndWait();
                 }
 
@@ -605,15 +597,14 @@ public class dashboardController implements Initializable {
                     }
 
                     int post_id = parseAndValidateInt(data[0], "Post ID", lineCount);
-                    String firstName = data[1];
-                    String author = data[2];
-                    String content = data[3];
-                    String publishDate = data[4];
-                    int likes = parseAndValidateInt(data[5], "Post ID", lineCount);
-                    String share = data[6];
+                    String author = data[1];
+                    String content = data[2];
+                    String publishDate = data[3];
+                    int likes = parseAndValidateInt(data[4], "Post ID", lineCount);
+                    String share = data[5];
                     System.out.println("I'm in the table  -  " + data[0].toString());
 
-                    // studentData post = new studentData(id, firstName, author, content,
+                    // studentData post = new studentData(id, author, content,
                     // publishDate, likes, share);
                     // posts.add(post);
                 }
@@ -679,8 +670,8 @@ public class dashboardController implements Initializable {
     public void addStudentsAdd() {
 
         String insertData = "INSERT INTO student "
-                + "(post_id,likes,course,firstName,author,content,birth,share,image,date) "
-                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+                + "(post_id,likes,author,content,birth,share,image,date) "
+                + "VALUES(?,?,?,?,?,?,?,?)";
 
         connect = database.connectDb();
 
@@ -689,7 +680,6 @@ public class dashboardController implements Initializable {
 
             if (addStudents_studentNum.getText().isEmpty()
                     || addStudents_likes.getText().isEmpty()
-                    || addStudents_firstName.getText().isEmpty()
                     || addStudents_author.getText().isEmpty()
                     || addStudents_content.getText().isEmpty()
                     || addStudents_pub_date.getValue() == null
@@ -718,20 +708,18 @@ public class dashboardController implements Initializable {
                     prepare = connect.prepareStatement(insertData);
                     prepare.setString(1, addStudents_studentNum.getText());
                     prepare.setString(2, (String) addStudents_likes.getText());
-                    prepare.setString(3, (String) "pass");
-                    prepare.setString(4, addStudents_firstName.getText());
-                    prepare.setString(5, addStudents_author.getText());
-                    prepare.setString(6, (String) addStudents_content.getText());
-                    prepare.setString(7, String.valueOf(addStudents_pub_date.getValue()));
-                    prepare.setString(8, (String) addStudents_share.getText());
+                    prepare.setString(3, addStudents_author.getText());
+                    prepare.setString(4, (String) addStudents_content.getText());
+                    prepare.setString(5, String.valueOf(addStudents_pub_date.getValue()));
+                    prepare.setString(6, (String) addStudents_share.getText());
 
                     String uri = getData.path;
                     uri = uri.replace("\\", "\\\\");
-                    prepare.setString(9, uri);
+                    prepare.setString(7, uri);
 
                     Date date = new Date();
                     java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                    prepare.setString(10, String.valueOf(sqlDate));
+                    prepare.setString(8, String.valueOf(sqlDate));
 
                     prepare.executeUpdate();
 
@@ -760,8 +748,6 @@ public class dashboardController implements Initializable {
 
         String updateData = "UPDATE student SET "
                 + "likes = '" + addStudents_likes.getText()
-                + "', course = '" + "pass"
-                + "', firstName = '" + addStudents_firstName.getText()
                 + "', author = '" + addStudents_author.getText()
                 + "', content = '" + addStudents_content.getText()
                 + "', birth = '" + addStudents_pub_date.getValue()
@@ -775,7 +761,6 @@ public class dashboardController implements Initializable {
             Alert alert;
             if (addStudents_studentNum.getText().isEmpty()
                     || addStudents_likes.getText().isEmpty()
-                    || addStudents_firstName.getText().isEmpty()
                     || addStudents_author.getText().isEmpty()
                     || addStudents_content.getText().isEmpty()
                     || addStudents_pub_date.getValue() == null
@@ -830,7 +815,6 @@ public class dashboardController implements Initializable {
             Alert alert;
             if (addStudents_studentNum.getText().isEmpty()
                     || addStudents_likes.getText().isEmpty()
-                    || addStudents_firstName.getText().isEmpty()
                     || addStudents_author.getText().isEmpty()
                     || addStudents_content.getText().isEmpty()
                     || addStudents_pub_date.getValue() == null
@@ -879,11 +863,10 @@ public class dashboardController implements Initializable {
     public void addStudentsClear() {
         addStudents_studentNum.setText("");
         addStudents_likes.setText("");
-        addStudents_firstName.setText("");
         addStudents_author.setText("");
         addStudents_content.setText("");
         addStudents_pub_date.setValue(null);
-        addStudents_share.getText();
+        addStudents_share.setText("");
         addStudents_imageView.setImage(null);
 
         getData.path = "";
@@ -913,11 +896,11 @@ public class dashboardController implements Initializable {
         try {
             connect = database.connectDb();
             // Write your SQL query with a WHERE clause to filter data based on searchValue
-            String sql = "SELECT * FROM student WHERE post_id LIKE ? OR firstName LIKE ? OR author LIKE ?";
+            String sql = "SELECT * FROM student WHERE post_id LIKE ? OR author LIKE ?";
             PreparedStatement preparedStatement = connect.prepareStatement(sql);
             preparedStatement.setString(1, "%" + searchValue + "%");
             preparedStatement.setString(2, "%" + searchValue + "%");
-            preparedStatement.setString(3, "%" + searchValue + "%");
+            // preparedStatement.setString(3, "%" + searchValue + "%");
 
             // Execute the query and retrieve the results
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -930,8 +913,6 @@ public class dashboardController implements Initializable {
                 studentData data = new studentData(
                         resultSet.getInt("post_id"),
                         resultSet.getInt("likes"),
-                        resultSet.getString("course"),
-                        resultSet.getString("firstName"),
                         resultSet.getString("author"),
                         resultSet.getString("content"),
                         resultSet.getDate("birth"),
@@ -954,7 +935,6 @@ public class dashboardController implements Initializable {
         }
     }
 
-    // NOW WE NEED THE COURSE, SO LETS WORK NOW THE AVAILABLE COURSE FORM : )
     // LETS WORK FIRST THE ADD STUDENTS FORM : )
     public ObservableList<studentData> addStudentsListData() {
 
@@ -972,8 +952,6 @@ public class dashboardController implements Initializable {
             while (result.next()) {
                 studentD = new studentData(result.getInt("post_id"),
                         result.getInt("likes"),
-                        result.getString("course"),
-                        result.getString("firstName"),
                         result.getString("author"),
                         result.getString("content"),
                         result.getDate("birth"),
@@ -996,7 +974,6 @@ public class dashboardController implements Initializable {
 
         addStudents_col_postId.setCellValueFactory(new PropertyValueFactory<>("studentNum"));
         addStudents_col_likes.setCellValueFactory(new PropertyValueFactory<>("likes"));
-        addStudents_col_firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         addStudents_col_author.setCellValueFactory(new PropertyValueFactory<>("author"));
         addStudents_col_content.setCellValueFactory(new PropertyValueFactory<>("content"));
         addStudents_col_pub_date.setCellValueFactory(new PropertyValueFactory<>("birth"));
@@ -1015,7 +992,6 @@ public class dashboardController implements Initializable {
         }
 
         addStudents_studentNum.setText(String.valueOf(studentD.getStudentNum()));
-        addStudents_firstName.setText(studentD.getFirstName());
         addStudents_likes.setText(String.valueOf(studentD.getLikes()));
         addStudents_author.setText(studentD.getAuthor());
         addStudents_content.setText(studentD.getContent());

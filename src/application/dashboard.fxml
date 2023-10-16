@@ -195,13 +195,12 @@
                                           <FontAwesomeIcon fill="#727272" glyphName="SEARCH" layoutX="21.0" layoutY="35.0" size="1.5em" />
                                           <TableView fx:id="addStudents_tableView" layoutX="13.0" layoutY="56.0" onMouseClicked="#addStudentsSelect" prefHeight="192.0" prefWidth="845.0">
                                             <columns>
-                                              <TableColumn fx:id="addStudents_col_postId" prefWidth="75.0" text="Post ID" />
-                                              <TableColumn fx:id="addStudents_col_firstName" prefWidth="140.0" text="First Name" />
-                                              <TableColumn fx:id="addStudents_col_author" prefWidth="128.0" text="Author" />
-                                              <TableColumn fx:id="addStudents_col_content" prefWidth="230.0" text="Content" />
-                                              <TableColumn fx:id="addStudents_col_pub_date" prefWidth="114.0" text="Publish Date" />
-                                              <TableColumn fx:id="addStudents_col_likes" prefWidth="77.0" text="Likes" />
-                                                <TableColumn fx:id="addStudents_col_share" prefWidth="77.0" text="Share" />
+                                              <TableColumn fx:id="addStudents_col_postId" prefWidth="90.0" text="Post ID" />
+                                              <TableColumn fx:id="addStudents_col_author" prefWidth="152.0" text="Author" />
+                                              <TableColumn fx:id="addStudents_col_content" prefWidth="250.0" text="Content" />
+                                              <TableColumn fx:id="addStudents_col_pub_date" prefWidth="130.0" text="Publish Date" />
+                                              <TableColumn fx:id="addStudents_col_likes" prefWidth="105.0" text="Likes" />
+                                                <TableColumn fx:id="addStudents_col_share" prefWidth="105.0" text="Share" />
                                             </columns>
                                           </TableView>
                                        </children>
@@ -221,40 +220,40 @@
                                     </Label>
                                     <TextField fx:id="addStudents_likes" layoutX="109.0" layoutY="313.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
 
-                                    <Label layoutX="313.0" layoutY="279.0" text="First Name:">
+                                    <!-- <Label layoutX="313.0" layoutY="279.0" text="First Name:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addStudents_firstName" layoutX="420.0" layoutY="276.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addStudents_firstName" layoutX="420.0" layoutY="276.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" /> -->
 
-                                    <Label layoutX="313.0" layoutY="316.0" text="Author:">
+                                    <Label layoutX="313.0" layoutY="279.0" text="Author:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addStudents_author" layoutX="420.0" layoutY="313.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addStudents_author" layoutX="420.0" layoutY="276.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
 
-                                    <Label layoutX="313.0" layoutY="355.0" text="Content:">
+                                    <Label layoutX="313.0" layoutY="316.0" text="Content:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addStudents_content" layoutX="420.0" layoutY="351.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addStudents_content" layoutX="420.0" layoutY="313.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
 
-                                    <Label layoutX="313.0" layoutY="391.0" text="Publish Date:">
+                                    <Label layoutX="313.0" layoutY="355.0" text="Publish Date:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker fx:id="addStudents_pub_date" layoutX="420.0" layoutY="388.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <DatePicker fx:id="addStudents_pub_date" layoutX="420.0" layoutY="351.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
 
-                                    <Label layoutX="313.0" layoutY="425.0" text="Share:">
+                                    <Label layoutX="313.0" layoutY="391.0" text="Share:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addStudents_share" layoutX="420.0" layoutY="421.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addStudents_share" layoutX="420.0" layoutY="388.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
 
                                     <AnchorPane layoutX="705.0" layoutY="281.0" prefHeight="149.0" prefWidth="120.0" stylesheets="@dashboardDesign.css">
                                        <styleClass>
