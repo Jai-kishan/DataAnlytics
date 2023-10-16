@@ -691,7 +691,7 @@ public class dashboardController implements Initializable {
                 alert.setContentText("Please fill all blank fields");
                 alert.showAndWait();
             } else {
-                // CHECK IF THE STUDENTNUMBER IS ALREADY EXIST
+                // CHECK IF THE POSTS IS ALREADY EXIST
                 String checkData = "SELECT post_id FROM posts WHERE post_id = '"
                         + addPosts_studentNum.getText() + "'";
 
@@ -888,8 +888,7 @@ public class dashboardController implements Initializable {
             getData.path = file.getAbsolutePath();
 
         }
-    } // WHILE WE INSERT THE DATA ON STUDENT, WE SHOULD INSERT ALSO THE DATA TO
-      // STUDENT_GRADE
+    }
 
     public void addPostsSearch() {
         String searchValue = addPosts_search.textProperty().getValue();
@@ -900,7 +899,6 @@ public class dashboardController implements Initializable {
             PreparedStatement preparedStatement = connect.prepareStatement(sql);
             preparedStatement.setString(1, "%" + searchValue + "%");
             preparedStatement.setString(2, "%" + searchValue + "%");
-            // preparedStatement.setString(3, "%" + searchValue + "%");
 
             // Execute the query and retrieve the results
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -935,22 +933,22 @@ public class dashboardController implements Initializable {
         }
     }
 
-    // LETS WORK FIRST THE ADD STUDENTS FORM : )
+    // LETS WORK FIRST THE ADD POSTS FORM : )
     public ObservableList<postsData> addPostsListData() {
 
-        ObservableList<postsData> listStudents = FXCollections.observableArrayList();
+        ObservableList<postsData> listPosts = FXCollections.observableArrayList();
 
         String sql = "SELECT * FROM posts";
 
         connect = database.connectDb();
 
         try {
-            postsData studentD;
+            postsData postD;
             prepare = connect.prepareStatement(sql);
             result = prepare.executeQuery();
 
             while (result.next()) {
-                studentD = new postsData(result.getInt("post_id"),
+                postD = new postsData(result.getInt("post_id"),
                         result.getInt("likes"),
                         result.getString("author"),
                         result.getString("content"),
@@ -958,13 +956,13 @@ public class dashboardController implements Initializable {
                         result.getString("share"),
                         result.getString("image"));
 
-                listStudents.add(studentD);
+                listPosts.add(postD);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listStudents;
+        return listPosts;
     }
 
     private ObservableList<postsData> addPostsListD;
@@ -985,24 +983,24 @@ public class dashboardController implements Initializable {
 
     public void addPostsSelect() {
 
-        postsData studentD = addPosts_tableView.getSelectionModel().getSelectedItem();
+        postsData postD = addPosts_tableView.getSelectionModel().getSelectedItem();
         int num = addPosts_tableView.getSelectionModel().getSelectedIndex();
         if ((num - 1) < -1) {
             return;
         }
 
-        addPosts_studentNum.setText(String.valueOf(studentD.getStudentNum()));
-        addPosts_likes.setText(String.valueOf(studentD.getLikes()));
-        addPosts_author.setText(studentD.getAuthor());
-        addPosts_content.setText(studentD.getContent());
-        addPosts_pub_date.setValue(LocalDate.parse(String.valueOf(studentD.getBirth())));
-        addPosts_share.setText(studentD.getShare());
-        String uri = "file:" + studentD.getImage();
+        addPosts_studentNum.setText(String.valueOf(postD.getStudentNum()));
+        addPosts_likes.setText(String.valueOf(postD.getLikes()));
+        addPosts_author.setText(postD.getAuthor());
+        addPosts_content.setText(postD.getContent());
+        addPosts_pub_date.setValue(LocalDate.parse(String.valueOf(postD.getBirth())));
+        addPosts_share.setText(postD.getShare());
+        String uri = "file:" + postD.getImage();
 
         image = new Image(uri, 120, 149, false, true);
         addPosts_imageView.setImage(image);
 
-        getData.path = studentD.getImage();
+        getData.path = postD.getImage();
 
     }
 
@@ -1077,8 +1075,6 @@ public class dashboardController implements Initializable {
                         alert.setHeaderText(null);
                         alert.setContentText("Successfully Updated!");
                         alert.showAndWait();
-
-                        // TO UPDATE THE TABLEVIEW
 
                     } else {
                         return;
@@ -1192,7 +1188,7 @@ public class dashboardController implements Initializable {
             home_btn.setStyle("-fx-background-color:transparent");
             userProfile_btn.setStyle("-fx-background-color:transparent");
 
-            // TO BECOME UPDATED ONCE YOU CLICK THE ADD STUDENTS BUTTON ON NAV
+            // TO BECOME UPDATED ONCE YOU CLICK THE ADD POSTS BUTTON ON NAV
             addPostsShowListData();
             addPostsSearch();
 
