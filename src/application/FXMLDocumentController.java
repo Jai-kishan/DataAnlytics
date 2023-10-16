@@ -295,7 +295,7 @@ public class FXMLDocumentController implements Initializable {
             if (usernameResult.next()) {
                 alert.errorMessage(username + " is already taken");
             } else {
-                String insertData = "INSERT INTO users (first_name, last_name, username, email_id, password, date) VALUES (?,?,?,?,?,?)";
+                String insertData = "INSERT INTO users (first_name, last_name, username, email_id, password, date, is_VIP) VALUES (?,?,?,?,?,?,?)";
 
                 try (PreparedStatement insertStmt = connection.prepareStatement(insertData)) {
                     insertStmt.setString(1, firstName);
@@ -305,7 +305,9 @@ public class FXMLDocumentController implements Initializable {
                     insertStmt.setString(5, password);
                     Date date = new Date();
                     java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                    insertStmt.setDate(6, sqlDate);
+                    insertStmt.setDate(6, sqlDate);                    
+                    insertStmt.setInt(7, 0);
+
 
                     int rowsAffected = insertStmt.executeUpdate();
 

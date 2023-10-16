@@ -180,9 +180,9 @@
 }
 
 
-.export-btn{
-    -fx-background-color:linear-gradient(to bottom, #3f5efb, #fc466b);
-    -fx-background-radius:4px;
+.export-import-btn{
+    -fx-background-color:linear-gradient(to bottom, #277bd0, #1b6fa4);
+    -fx-background-radius:3px;
     -fx-cursor:hand;
     -fx-text-fill:#fff;
     -fx-font-size:14px;
@@ -190,8 +190,8 @@
 }
 
 
-.export-btn:hover{
-    -fx-background-color:linear-gradient(to bottom, #277bd0, #1b6fa4);
+.export-import-btn:hover{
+    -fx-background-color:linear-gradient(to bottom, #3f5efb, #fc466b);
 
 }
 

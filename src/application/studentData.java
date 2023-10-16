@@ -54,6 +54,16 @@ public class studentData {
 
 
 
+    public studentData(Integer postId, String firstName, String author, String content, Date birth, Integer likes, String share) {
+        this.postId = postId;
+        this.likes = likes;
+        this.firstName = firstName;
+        this.author = author;
+        this.content = content;
+        this.birth = birth;
+        this.share = share;
+    }
+
     public Integer getStudentNum() {
         return postId;
     }

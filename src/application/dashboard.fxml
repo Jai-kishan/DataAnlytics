@@ -2,9 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import java.lang.String?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -190,14 +188,8 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <BarChart fx:id="home_totalEnrolledChart" layoutX="-59.0" layoutY="-55.0" prefHeight="345.0" prefWidth="441.0" title="Total Enrolled Chart" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <xAxis>
-                                              <CategoryAxis side="BOTTOM" />
-                                            </xAxis>
-                                            <yAxis>
-                                              <NumberAxis side="LEFT" />
-                                            </yAxis>
-                                          </BarChart>                                         
+                                          <PieChart fx:id="home_totalEnrolledChart" layoutX="1.0" layoutY="2.0" prefHeight="342.0" prefWidth="381.0" title="Total Enrolled Chart">
+                                          </PieChart>                                         
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane layoutX="413.0" layoutY="166.0" prefHeight="169.0" prefWidth="449.0">
@@ -230,6 +222,7 @@
                                                <TableColumn fx:id="topNShare_col_share" prefWidth="145.0" text="Share" />
                                              </columns>
                                            </TableView>
+                                           <Label layoutX="180.0" styleClass="table-caption" text="Top N Share Table" />                                          
 
                                        </children>
                                     </AnchorPane>
@@ -275,7 +268,7 @@
                                     </Label>
                                     <TextField fx:id="addStudents_studentNum" layoutX="109.0" layoutY="276.0" prefHeight="25.0" prefWidth="116.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     
-                                    <Label layoutX="66.0" layoutY="316.0" text="Likes:">
+                                    <Label layoutX="32.0" layoutY="316.0" text="Likes:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
@@ -287,35 +280,35 @@
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addStudents_firstName" layoutX="390.0" layoutY="276.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addStudents_firstName" layoutX="420.0" layoutY="276.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
 
                                     <Label layoutX="313.0" layoutY="316.0" text="Author:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addStudents_author" layoutX="390.0" layoutY="313.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addStudents_author" layoutX="420.0" layoutY="313.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
 
-                                    <Label layoutX="334.0" layoutY="355.0" text="Content:">
+                                    <Label layoutX="313.0" layoutY="355.0" text="Content:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addStudents_content" layoutX="390.0" layoutY="351.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addStudents_content" layoutX="420.0" layoutY="351.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
 
-                                    <Label layoutX="315.0" layoutY="391.0" text="Publish Date:">
+                                    <Label layoutX="313.0" layoutY="391.0" text="Publish Date:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker fx:id="addStudents_pub_date" layoutX="390.0" layoutY="388.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <DatePicker fx:id="addStudents_pub_date" layoutX="420.0" layoutY="388.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
 
-                                    <Label layoutX="337.0" layoutY="425.0" text="Share:">
+                                    <Label layoutX="313.0" layoutY="425.0" text="Share:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addStudents_share" layoutX="390.0" layoutY="421.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addStudents_share" layoutX="420.0" layoutY="421.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
 
                                     <AnchorPane layoutX="705.0" layoutY="281.0" prefHeight="149.0" prefWidth="120.0" stylesheets="@dashboardDesign.css">
                                        <styleClass>
@@ -328,11 +321,15 @@
                                        </children>
                                     </AnchorPane>
 
-
-                                    
-                                    <Button fx:id="postData_exportBtn" layoutX="710.0" layoutY="13.0" mnemonicParsing="false" onAction="#expostPostData" prefHeight="30.0" prefWidth="120.0" styleClass="export-btn" stylesheets="@dashboardDesign.css" text="Export">
+                                    <Button fx:id="postsData_importBtn" layoutX="569.0" layoutY="13.0" mnemonicParsing="false" onAction="#importPostsData" prefHeight="25.0" prefWidth="120.0" styleClass="export-import-btn" stylesheets="@dashboardDesign.css" text="Import">
                                        <graphic>
-                                          <FontAwesomeIcon fill="WHITE" glyphName="DOWNLOAD" size="2em" />
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CLOUD_DOWNLOAD" size="2em" />
+                                      </graphic>
+                                    </Button> 
+                                    
+                                    <Button fx:id="postData_exportBtn" layoutX="710.0" layoutY="13.0" mnemonicParsing="false" onAction="#exportPostData" prefHeight="25.0" prefWidth="120.0" styleClass="export-import-btn" stylesheets="@dashboardDesign.css" text="Export">
+                                       <graphic>
+                                          <FontAwesomeIcon fill="WHITE" glyphName="CLOUD_UPLOAD" size="2em" />
                                       </graphic>
                                     </Button> 
                                     <Button fx:id="addStudents_addBtn" layoutX="765.0" layoutY="480.0" mnemonicParsing="false" onAction="#addStudentsAdd" prefHeight="35.0" prefWidth="85.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Add" />
