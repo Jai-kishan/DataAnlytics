@@ -95,16 +95,7 @@ public class dashboardController implements Initializable {
     private AnchorPane home_form;
 
     @FXML
-    private Label home_totalEnrolled;
-
-    @FXML
-    private Label home_totalFemale;
-
-    @FXML
-    private Label home_totalMale;
-
-    @FXML
-    private PieChart home_totalEnrolledChart;
+    private PieChart PieChart_ShareDistribution;
 
     @FXML
     private TableView<studentData> home_totalFemaleChart;
@@ -343,82 +334,10 @@ public class dashboardController implements Initializable {
 
 
 
+    public void PieChartShareDistribution() {
 
-    public void homeDisplayTotalEnrolledStudents() {
-
-        String sql = "SELECT COUNT(id) FROM student";
-
-        connect = database.connectDb();
-
-        int countEnrolled = 0;
-
-        try {
-            prepare = connect.prepareStatement(sql);
-            result = prepare.executeQuery();
-
-            if (result.next()) {
-                countEnrolled = result.getInt("COUNT(id)");
-            }
-
-            home_totalEnrolled.setText(String.valueOf(countEnrolled));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void homeDisplayFemaleEnrolled() {
-
-        String sql = "SELECT COUNT(id) FROM student WHERE course = 'pass'";
-
-        connect = database.connectDb();
-
-        try {
-            int countFemale = 0;
-
-            prepare = connect.prepareStatement(sql);
-            result = prepare.executeQuery();
-
-            if (result.next()) {
-                countFemale = result.getInt("COUNT(id)");
-            }
-
-            home_totalFemale.setText(String.valueOf(countFemale));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void homeDisplayMaleEnrolled() {
-
-        String sql = "SELECT COUNT(id) FROM student WHERE course = 'pass'";
-
-        connect = database.connectDb();
-
-        try {
-            int countMale = 0;
-
-            prepare = connect.prepareStatement(sql);
-            result = prepare.executeQuery();
-
-            if (result.next()) {
-                countMale = result.getInt("COUNT(id)");
-            }
-            home_totalMale.setText(String.valueOf(countMale));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void homeDisplayTotalEnrolledChart() {
-
-        // Assuming you have a PieChart object defined as home_totalEnrolledChart
-        home_totalEnrolledChart.getData().clear();
+        // Assuming you have a PieChart object defined as PieChart_ShareDistribution
+        PieChart_ShareDistribution.getData().clear();
 
         // String sql = "SELECT CASE WHEN `share` BETWEEN 0 AND 99 THEN '0-99 Shares'
         // WHEN `share` BETWEEN 100 AND 999 THEN '100-999 Shares' WHEN `share` >= 1000
@@ -431,14 +350,14 @@ public class dashboardController implements Initializable {
         connect = database.connectDb();
         try {
 
-            home_totalEnrolledChart.setTitle("Share Distribution");
+            PieChart_ShareDistribution.setTitle("Share Distribution");
 
             prepare = connect.prepareStatement(sql);
             result = prepare.executeQuery();
 
             while (result.next()) {
                 System.out.println();
-                home_totalEnrolledChart.getData().add(new PieChart.Data(result.getString(1), result.getInt(2)));
+                PieChart_ShareDistribution.getData().add(new PieChart.Data(result.getString(1), result.getInt(2)));
             }
 
         } catch (Exception e) {
@@ -1213,14 +1132,9 @@ public class dashboardController implements Initializable {
             addStudents_btn.setStyle("-fx-background-color:transparent");
 
             userProfile_btn.setStyle("-fx-background-color:transparent");
-
-            homeDisplayTotalEnrolledStudents();
-            homeDisplayMaleEnrolled();
-            homeDisplayFemaleEnrolled();
             topNLikes();
             topNShare();
-            // homeDisplayFemaleEnrolledChart();
-            homeDisplayTotalEnrolledChart();
+            PieChartShareDistribution();
 
         } else if (event.getSource() == addStudents_btn) {
             home_form.setVisible(false);
@@ -1262,12 +1176,9 @@ public class dashboardController implements Initializable {
         displayUsername();
         defaultNav();
 
-        homeDisplayTotalEnrolledStudents();
-        homeDisplayMaleEnrolled();
-        homeDisplayFemaleEnrolled();
         topNLikes();
         topNShare();
-        homeDisplayTotalEnrolledChart();
+        PieChartShareDistribution();
 
         // TO SHOW IMMIDIATELY WHEN WE PROCEED TO DASHBOARD APPLICATION FORM
         addStudentsShowListData();

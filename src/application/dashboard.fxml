@@ -129,66 +129,14 @@
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <AnchorPane prefHeight="134.0" prefWidth="872.0" stylesheets="@dashboardDesign.css">
-                                       <styleClass>
-                                          <String fx:value="white-bg" />
-                                          <String fx:value="shadow" />
-                                       </styleClass>
-                                       <children>
-                                          <AnchorPane layoutX="14.0" layoutY="7.0" prefHeight="120.0" prefWidth="253.0" styleClass="card" stylesheets="@dashboardDesign.css">
-                                             <children>
-                                                <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="14.0" layoutY="77.0" size="4em" />
-                                                <Label layoutX="74.0" layoutY="84.0" text="Total Enrolled Students" textFill="WHITE">
-                                                   <font>
-                                                      <Font name="Tahoma" size="15.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label fx:id="home_totalEnrolled" alignment="CENTER_RIGHT" layoutX="83.0" layoutY="14.0" prefHeight="29.0" prefWidth="156.0" text="0" textFill="WHITE">
-                                                   <font>
-                                                      <Font name="Berlin Sans FB" size="25.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </AnchorPane>
-                                          <AnchorPane layoutX="310.0" layoutY="7.0" prefHeight="120.0" prefWidth="253.0" styleClass="card" stylesheets="@dashboardDesign.css">
-                                             <children>
-                                                <FontAwesomeIcon fill="WHITE" glyphName="FEMALE" layoutX="14.0" layoutY="79.0" size="4em" />
-                                                <Label layoutX="56.0" layoutY="86.0" prefHeight="19.0" prefWidth="175.0" text="Enrolled Female Students" textFill="WHITE">
-                                                   <font>
-                                                      <Font name="Tahoma" size="15.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label fx:id="home_totalFemale" alignment="CENTER_RIGHT" layoutX="83.0" layoutY="16.0" prefHeight="29.0" prefWidth="156.0" text="0" textFill="WHITE">
-                                                   <font>
-                                                      <Font name="Berlin Sans FB" size="25.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </AnchorPane>
-                                          <AnchorPane layoutX="605.0" layoutY="7.0" prefHeight="120.0" prefWidth="253.0" styleClass="card" stylesheets="@dashboardDesign.css">
-                                             <children>
-                                                <FontAwesomeIcon fill="WHITE" glyphName="MALE" layoutX="14.0" layoutY="79.0" size="4em" />
-                                                <Label layoutX="56.0" layoutY="86.0" prefHeight="19.0" prefWidth="175.0" text="Enrolled Male Students" textFill="WHITE">
-                                                   <font>
-                                                      <Font name="Tahoma" size="15.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label fx:id="home_totalMale" alignment="CENTER_RIGHT" layoutX="83.0" layoutY="16.0" prefHeight="29.0" prefWidth="156.0" text="0" textFill="WHITE">
-                                                   <font>
-                                                      <Font name="Berlin Sans FB" size="25.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </AnchorPane>
-                                       </children>
-                                    </AnchorPane>
+                                    
                                     <AnchorPane layoutX="14.0" layoutY="166.0" prefHeight="345.0" prefWidth="382.0" stylesheets="@dashboardDesign.css">
                                        <styleClass>
                                           <String fx:value="white-bg" />
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <PieChart fx:id="home_totalEnrolledChart" layoutX="1.0" layoutY="2.0" prefHeight="342.0" prefWidth="381.0" title="Total Enrolled Chart">
+                                          <PieChart fx:id="PieChart_ShareDistribution" layoutX="1.0" layoutY="2.0" prefHeight="342.0" prefWidth="381.0" title="Total Enrolled Chart">
                                           </PieChart>                                         
                                        </children>
                                     </AnchorPane>
@@ -205,8 +153,7 @@
                                                <TableColumn fx:id="topNLikes_col_content" prefWidth="230.0" text="Content" />
                                                <TableColumn fx:id="topNLikes_col_likes" prefWidth="145.0" text="Likes" />
                                              </columns>
-                                           </TableView>
-                                          <Label layoutX="180.0" styleClass="table-caption" text="Top N Likes Table" />                                          
+                                           </TableView>                                       
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane layoutX="413.0" layoutY="352.0" prefHeight="159.0" prefWidth="449.0">
@@ -222,8 +169,6 @@
                                                <TableColumn fx:id="topNShare_col_share" prefWidth="145.0" text="Share" />
                                              </columns>
                                            </TableView>
-                                           <Label layoutX="180.0" styleClass="table-caption" text="Top N Share Table" />                                          
-
                                        </children>
                                     </AnchorPane>
                                  </children>
