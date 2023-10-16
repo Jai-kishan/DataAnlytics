@@ -347,9 +347,9 @@ public class dashboardController implements Initializable {
 
         String username = getData.username;
         String email = getData.email;
-        System.out.println("I 'm in pie");
+        // System.out.println("I 'm in pie");
         boolean isVIP = checkVIPStatus(username, email, false);
-        System.out.println("isVIP status" + isVIP);
+        // System.out.println("isVIP status" + isVIP);
         if (isVIP) {
             pieChartCard.setVisible(true);
 
@@ -577,8 +577,6 @@ public class dashboardController implements Initializable {
 
                 // Check if all required columns are present
                 if (!containsRequiredColumns(headers)) {
-                    // throw new InvalidCSVException("CSV file is missing one or more required
-                    // columns");
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Error Message");
                     alert.setHeaderText(null);
@@ -606,7 +604,7 @@ public class dashboardController implements Initializable {
                         alert.showAndWait();
                     }
 
-                    int id = parseAndValidateInt(data[0], "Post ID", lineCount);
+                    int post_id = parseAndValidateInt(data[0], "Post ID", lineCount);
                     String firstName = data[1];
                     String author = data[2];
                     String content = data[3];
