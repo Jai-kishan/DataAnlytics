@@ -2,25 +2,26 @@ package application;
 
 import java.sql.Date;
 
+
 public class postsData {
 
     private Integer postId;
     private Integer likes;
     private String author;
     private String content;
-    private Date birth;
+    private Date date;
     private String share;
     private String image;
 
 
     // MAKE SURE THAT SAME DATATYPE THAT YOU WILL PUT THERE
-    public postsData(Integer postId, Integer likes, String author, String content, Date birth, String share,
+    public postsData(Integer postId, Integer likes, String author, String content, Date date, String share,
             String image) {
         this.postId = postId;
         this.likes = likes;
         this.author = author;
         this.content = content;
-        this.birth = birth;
+        this.date = date;
         this.share = share;
         this.image = image;
     }
@@ -35,15 +36,6 @@ public class postsData {
         this.postId = postId;
         this.share = share;
         this.content = content;
-    }
-
-    public postsData(Integer postId, String author, String content, Date birth, Integer likes, String share) {
-        this.postId = postId;
-        this.likes = likes;
-        this.author = author;
-        this.content = content;
-        this.birth = birth;
-        this.share = share;
     }
 
     public Integer getStudentNum() {
@@ -63,7 +55,7 @@ public class postsData {
     }
 
     public Date getBirth() {
-        return birth;
+        return date;
     }
 
     public String getShare() {

@@ -136,7 +136,6 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <!-- <Label layoutX="60.0" layoutY="153.0" prefHeight="40.0" prefWidth="275.0" text="This feature is available only for subscribed users" textAlignment="CENTER" /> -->
                                           <PieChart fx:id="PieChart_ShareDistribution" layoutX="1.0" layoutY="2.0" prefHeight="342.0" prefWidth="381.0" title="Share Distribution">
                                           </PieChart>                                         
                                        </children>

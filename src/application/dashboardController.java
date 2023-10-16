@@ -16,7 +16,6 @@ import java.sql.SQLException;
 
 import java.time.LocalDate;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -26,7 +25,6 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 
 import javafx.event.ActionEvent;
 
@@ -55,7 +53,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-
 
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
@@ -102,12 +99,6 @@ public class dashboardController implements Initializable {
 
     @FXML
     private PieChart PieChart_ShareDistribution;
-
-    @FXML
-    private TableView<postsData> home_totalFemaleChart;
-
-    @FXML
-    private TableView<postsData> home_totalMaleChart;
 
     @FXML
     private AnchorPane addPosts_form;
@@ -246,12 +237,13 @@ public class dashboardController implements Initializable {
             boolean userWantsToUpgrade = askUserToUpgrade();
             if (userWantsToUpgrade) {
                 upgradeToVIP(username, email);
-                askUserToLogoutAndLogin();
+                // logout();
             }
         }
     }
 
     public boolean checkVIPStatus(String username, String email, boolean type) {
+        Alert alert;
         connect = database.connectDb();
         try {
             String query = "SELECT is_VIP FROM users WHERE username = ? and email_id = ?";
@@ -268,7 +260,7 @@ public class dashboardController implements Initializable {
                             return false;
                         } else {
                             if (type) {
-                                Alert alert;
+
                                 alert = new Alert(AlertType.INFORMATION);
                                 alert.setTitle("Information Message");
                                 alert.setHeaderText(null);
@@ -283,11 +275,17 @@ public class dashboardController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText(e.toString());
+            alert.showAndWait();
         }
         return false;
     }
 
     public void upgradeToVIP(String username, String email) {
+        Alert alert;
         connect = database.connectDb();
         try {
             String query = "UPDATE users SET is_VIP = 1 WHERE username = ? and email_id =  ? ";
@@ -298,6 +296,11 @@ public class dashboardController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText(e.toString());
+            alert.showAndWait();
         }
     }
 
@@ -325,17 +328,10 @@ public class dashboardController implements Initializable {
             return false;
         }
 
-        // // Implement UI or user interaction to ask if they want to upgrade
-        // // Return true if they agree to upgrade, false otherwise
-        // return false;
-    }
-
-    public void askUserToLogoutAndLogin() {
-        // Display a message asking the user to log out and log in again
     }
 
     public void PieChartShareDistribution() {
-
+        Alert alert;
         String username = getData.username;
         String email = getData.email;
         boolean isVIP = checkVIPStatus(username, email, false);
@@ -387,6 +383,11 @@ public class dashboardController implements Initializable {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText(e.toString());
+                alert.showAndWait();
             }
         } else {
             pieChartCard.setVisible(false);
@@ -435,6 +436,7 @@ public class dashboardController implements Initializable {
     }
 
     private ObservableList<postsData> fetchTopNShareData() {
+        Alert alert;
         ObservableList<postsData> data = FXCollections.observableArrayList();
 
         try {
@@ -457,6 +459,11 @@ public class dashboardController implements Initializable {
             connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText(e.toString());
+            alert.showAndWait();
         }
 
         return data;
@@ -477,7 +484,7 @@ public class dashboardController implements Initializable {
 
     private ObservableList<postsData> fetchTopNLikesData() {
         ObservableList<postsData> data = FXCollections.observableArrayList();
-
+        Alert alert;
         try {
             connect = database.connectDb();
             Statement statement = connect.createStatement();
@@ -498,12 +505,18 @@ public class dashboardController implements Initializable {
             connect.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText(e.toString());
+            alert.showAndWait();
         }
 
         return data;
     }
 
     public void exportPostData() {
+        Alert alert;
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save CSV File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
@@ -531,99 +544,17 @@ public class dashboardController implements Initializable {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText(e.toString());
+                alert.showAndWait();
             }
         }
     }
 
     private static final List<String> REQUIRED_COLUMNS = Arrays.asList("Post ID", "Author", "Content",
             "Publish Date", "Likes", "Share");
-
-    public void importPostsData() throws IOException {
-        Alert alert;
-        System.out.println("I'm in the table");
-
-        String username = getData.username;
-        String email = getData.email;
-        boolean isVIP = checkVIPStatus(username, email, false);
-
-        if (isVIP) {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-            File selectedFile = fileChooser.showOpenDialog(null);
-            try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
-
-                String headerLine = br.readLine(); // Read the header line
-
-                if (headerLine == null) {
-                    alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("CSV file is empty");
-                    alert.showAndWait();
-                }
-
-                String[] headers = headerLine.split(",");
-
-                // Check if all required columns are present
-                if (!containsRequiredColumns(headers)) {
-                    alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText(
-                            "CSV file is missing one or more required columns\nRequired Column should be:-\nPost ID,Author,Content,Publish Date,Likes,Share");
-                    alert.showAndWait();
-                }
-
-                String line;
-                int lineCount = 1; // To keep track of the line number for error reporting
-
-                System.out.println("headers " + headers);
-                List<postsData> posts = new ArrayList<>();
-
-                while ((line = br.readLine()) != null) {
-                    String[] data = line.split(",");
-
-                    if (data.length != headers.length) {
-                        // throw new InvalidCSVException("Invalid number of columns on line " +
-                        // lineCount);
-                        alert = new Alert(AlertType.ERROR);
-                        alert.setTitle("Error Message");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Invalid number of columns on line" + lineCount);
-                        alert.showAndWait();
-                    }
-
-                    int post_id = parseAndValidateInt(data[0], "Post ID", lineCount);
-                    String author = data[1];
-                    String content = data[2];
-                    String publishDate = data[3];
-                    int likes = parseAndValidateInt(data[4], "Post ID", lineCount);
-                    String share = data[5];
-                    System.out.println("I'm in the table  -  " + data[0].toString());
-
-                    // postsData post = new postsData(id, author, content,
-                    // publishDate, likes, share);
-                    // posts.add(post);
-                }
-                // return posts;
-
-                alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Information Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Successfully Post Data Inserted...!");
-                alert.showAndWait();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Message");
-            alert.setHeaderText(null);
-            alert.setContentText("This Feature is available only for subscribed users");
-            alert.showAndWait();
-
-        }
-    }
 
     private int parseAndValidateInt(String value, String columnName, int lineCount) {
         Alert alert;
@@ -664,16 +595,153 @@ public class dashboardController implements Initializable {
         return true;
     }
 
+    public void importPostsData() throws IOException, SQLException {
+
+        Alert alert;
+        System.out.println("I'm in the table");
+
+        String username = getData.username;
+        String email = getData.email;
+        boolean isVIP = checkVIPStatus(username, email, false);
+
+        if (isVIP) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+            File selectedFile = fileChooser.showOpenDialog(null);
+
+            if (selectedFile != null) {
+                try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
+                    String headerLine = br.readLine(); // Read the header line
+
+                    if (headerLine == null) {
+                        alert = new Alert(AlertType.ERROR);
+                        alert.setTitle("Error Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("CSV file is empty");
+                        alert.showAndWait();
+                        return;
+                    }
+
+                    String[] headers = headerLine.split(",");
+
+                    // Check if all required columns are present
+                    if (!containsRequiredColumns(headers)) {
+                        alert = new Alert(AlertType.ERROR);
+                        alert.setTitle("Error Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText(
+                                "CSV file is missing one or more required columns\nRequired Column should be:-\nPost ID,Author,Content,Publish Date,Likes,Share");
+                        alert.showAndWait();
+                        return;
+                    }
+
+                    String line;
+                    int lineCount = 1; // To keep track of the line number for error reporting
+
+                    String insertData = "INSERT INTO posts "
+                            + "(post_id, author, content, pub_date, likes, share) "
+                            + "VALUES (?, ?, ?, ?, ?, ?)";
+
+                    try (Connection connect = database.connectDb();
+                            PreparedStatement prepare = connect.prepareStatement(insertData)) {
+
+                        ObservableList<String> dataList = FXCollections.observableArrayList();
+
+                        while ((line = br.readLine()) != null) {
+                            lineCount++;
+                            String[] data = line.split(",");
+
+                            if (data.length != headers.length) {
+                                alert = new Alert(AlertType.ERROR);
+                                alert.setTitle("Error Message");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Invalid number of columns on line " + lineCount);
+                                alert.showAndWait();
+                                return;
+                            }
+
+                            String checkData = "SELECT post_id FROM posts WHERE post_id = '"
+                                    + data[0] + "'";
+
+                            statement = connect.createStatement();
+                            result = statement.executeQuery(checkData);
+
+                            if (result.next()) {
+                                dataList.add(data[0]);
+                            } else {
+
+                                prepare.setInt(1, parseAndValidateInt(data[0], "Post ID", lineCount));
+                                prepare.setString(2, data[1]);
+                                prepare.setString(3, data[2]);
+                                prepare.setString(4, data[3]);
+                                prepare.setInt(5, parseAndValidateInt(data[4], "Likes", lineCount));
+                                prepare.setInt(6, parseAndValidateInt(data[5], "Share", lineCount));
+                                prepare.executeUpdate();
+                            }
+                        }
+
+                        if (dataList.isEmpty()) {
+                            alert = new Alert(AlertType.INFORMATION);
+                            alert.setTitle("Information Message");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Successfully Post Data Inserted...!");
+                            alert.showAndWait();
+
+                        } else {
+                            alert = new Alert(AlertType.INFORMATION);
+                            alert.setTitle("Information Message");
+                            alert.setHeaderText(null);
+                            alert.setContentText(
+                                    "Successfully Post Data Inserted...!\nBut few data is already exists whose Post ID's are:-\n"
+                                            + dataList);
+                            alert.showAndWait();
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        // System.out.println("eeee"+ e);
+                        alert = new Alert(AlertType.ERROR);
+                        alert.setTitle("Error Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText(e.toString());
+                        alert.showAndWait();
+
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText(e.toString());
+                    alert.showAndWait();
+                }
+            } else {
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("No file selected");
+                alert.showAndWait();
+            }
+        } else {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("This Feature is available only for subscribed users");
+            alert.showAndWait();
+        }
+    }
+
     public void addPostsAdd() {
 
+        Alert alert;
         String insertData = "INSERT INTO posts "
-                + "(post_id,likes,author,content,birth,share,image,date) "
+                + "(post_id,likes,author,content,pub_date,share,image,updated_date) "
                 + "VALUES(?,?,?,?,?,?,?,?)";
 
         connect = database.connectDb();
 
         try {
-            Alert alert;
 
             if (addPosts_studentNum.getText().isEmpty()
                     || addPosts_likes.getText().isEmpty()
@@ -735,6 +803,11 @@ public class dashboardController implements Initializable {
 
         } catch (Exception e) {
             e.printStackTrace();
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText(e.toString());
+            alert.showAndWait();
         }
     }
 
@@ -747,15 +820,15 @@ public class dashboardController implements Initializable {
                 + "likes = '" + addPosts_likes.getText()
                 + "', author = '" + addPosts_author.getText()
                 + "', content = '" + addPosts_content.getText()
-                + "', birth = '" + addPosts_pub_date.getValue()
+                + "', pub_date = '" + addPosts_pub_date.getValue()
                 + "', share = '" + addPosts_share.getText()
                 + "', image = '" + uri + "' WHERE post_id = '"
                 + addPosts_studentNum.getText() + "'";
 
         connect = database.connectDb();
+        Alert alert;
 
         try {
-            Alert alert;
             if (addPosts_studentNum.getText().isEmpty()
                     || addPosts_likes.getText().isEmpty()
                     || addPosts_author.getText().isEmpty()
@@ -798,6 +871,11 @@ public class dashboardController implements Initializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText(e.toString());
+            alert.showAndWait();
         }
     }
 
@@ -807,16 +885,15 @@ public class dashboardController implements Initializable {
                 + addPosts_studentNum.getText() + "'";
 
         connect = database.connectDb();
+        Alert alert;
 
         try {
-            Alert alert;
             if (addPosts_studentNum.getText().isEmpty()
                     || addPosts_likes.getText().isEmpty()
                     || addPosts_author.getText().isEmpty()
                     || addPosts_content.getText().isEmpty()
                     || addPosts_pub_date.getValue() == null
-                    || addPosts_share.getText().isEmpty()
-                    || getData.path == null || getData.path == "") {
+                    || addPosts_share.getText().isEmpty()) {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
@@ -853,6 +930,11 @@ public class dashboardController implements Initializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText(e.toString());
+            alert.showAndWait();
         }
 
     }
@@ -888,6 +970,7 @@ public class dashboardController implements Initializable {
     }
 
     public void addPostsSearch() {
+        Alert alert;
         String searchValue = addPosts_search.textProperty().getValue();
         try {
             connect = database.connectDb();
@@ -910,7 +993,7 @@ public class dashboardController implements Initializable {
                         resultSet.getInt("likes"),
                         resultSet.getString("author"),
                         resultSet.getString("content"),
-                        resultSet.getDate("birth"),
+                        resultSet.getDate("pub_date"),
                         resultSet.getString("share"),
                         resultSet.getString("image"));
                 searchResults.add(data);
@@ -927,12 +1010,17 @@ public class dashboardController implements Initializable {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText(e.toString());
+            alert.showAndWait();
         }
     }
 
     // LETS WORK FIRST THE ADD POSTS FORM : )
     public ObservableList<postsData> addPostsListData() {
-
+        Alert alert;
         ObservableList<postsData> listPosts = FXCollections.observableArrayList();
 
         String sql = "SELECT * FROM posts";
@@ -949,7 +1037,7 @@ public class dashboardController implements Initializable {
                         result.getInt("likes"),
                         result.getString("author"),
                         result.getString("content"),
-                        result.getDate("birth"),
+                        result.getDate("pub_date"),
                         result.getString("share"),
                         result.getString("image"));
 
@@ -958,6 +1046,11 @@ public class dashboardController implements Initializable {
 
         } catch (Exception e) {
             e.printStackTrace();
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText(e.toString());
+            alert.showAndWait();
         }
         return listPosts;
     }
@@ -1023,7 +1116,7 @@ public class dashboardController implements Initializable {
                         + "', last_name = '" + userProfile_last_name.getText()
                         + "', username = '" + userProfile_username.getText()
                         + "', password = '" + userProfile_password.getText()
-                        + "', update_date = '" + sqlDate + "' WHERE email_id = '"
+                        + "', updated_date = '" + sqlDate + "' WHERE email_id = '"
                         + getData.email + "'";
 
                 String password = userProfile_password.getText();
@@ -1088,6 +1181,11 @@ public class dashboardController implements Initializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText(e.toString());
+            alert.showAndWait();
         }
     }
 
@@ -1095,10 +1193,10 @@ public class dashboardController implements Initializable {
     private double y = 0;
 
     public void logout() {
-
+        Alert alert;
         try {
 
-            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Message");
             alert.setHeaderText(null);
             alert.setContentText("Are you sure you want to logout?");
@@ -1142,6 +1240,11 @@ public class dashboardController implements Initializable {
 
         } catch (Exception e) {
             e.printStackTrace();
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText(e.toString());
+            alert.showAndWait();
         }
 
     }

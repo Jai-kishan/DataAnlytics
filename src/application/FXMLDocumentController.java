@@ -293,7 +293,7 @@ public class FXMLDocumentController implements Initializable {
             if (usernameResult.next()) {
                 alert.errorMessage(username + " is already taken");
             } else {
-                String insertData = "INSERT INTO users (first_name, last_name, username, email_id, password, date, is_VIP) VALUES (?,?,?,?,?,?,?)";
+                String insertData = "INSERT INTO users (first_name, last_name, username, email_id, password, created_date, is_VIP) VALUES (?,?,?,?,?,?,?)";
 
                 try (PreparedStatement insertStmt = connection.prepareStatement(insertData)) {
                     insertStmt.setString(1, firstName);
