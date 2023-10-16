@@ -1,4 +1,4 @@
-package application;
+package controllers;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -6,6 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.ResourceBundle;
+
+import application.alertMessage;
+import application.getData;
+import dao.database;
+
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -172,7 +177,7 @@ public class FXMLDocumentController implements Initializable {
 //                    TO HIDE THE LOGIN FORM
                     loginBtn.getScene().getWindow().hide();
                     //LINK YOUR DASHBOARD 
-                    Parent root = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/resources/views/dashboard.fxml"));
                     
                     Stage stage = new Stage();
                     Scene scene = new Scene(root);

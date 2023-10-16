@@ -17,15 +17,15 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.dashboardController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashboardController">
    <children>
       <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0">
          <children>
             <BorderPane layoutX="119.0" layoutY="55.0" prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <top>
-                  <AnchorPane prefHeight="45.0" prefWidth="1100.0" styleClass="semi-top-form" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
+                  <AnchorPane prefHeight="45.0" prefWidth="1100.0" styleClass="semi-top-form" stylesheets="@resources/css/dashboardDesign.css" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutX="41.0" layoutY="-77.0" prefHeight="35.0" prefWidth="1100.0" styleClass="top-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane layoutX="41.0" layoutY="-77.0" prefHeight="35.0" prefWidth="1100.0" styleClass="top-form" stylesheets="@resources/css/dashboardDesign.css" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <FontAwesomeIcon glyphName="GRADUATION_CAP" layoutX="14.0" layoutY="24.0" size="1.5em" />
                               <Label layoutX="45.0" layoutY="9.0" text="Data Analytics Hub">
@@ -33,12 +33,12 @@
                                     <Font name="Tahoma" size="15.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="close" layoutX="1021.0" layoutY="5.0" mnemonicParsing="false" onAction="#close" prefHeight="24.0" prefWidth="55.0" styleClass="close" stylesheets="@dashboardDesign.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+                              <Button fx:id="close" layoutX="1021.0" layoutY="5.0" mnemonicParsing="false" onAction="#close" prefHeight="24.0" prefWidth="55.0" styleClass="close" stylesheets="@resources/css/dashboardDesign.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
                                  <graphic>
                                     <FontAwesomeIcon glyphName="CLOSE" size="1.2em" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="minimize" layoutX="1000.0" layoutY="2.0" mnemonicParsing="false" onAction="#minimize" prefHeight="24.0" prefWidth="43.0" styleClass="minimize" stylesheets="@dashboardDesign.css">
+                              <Button fx:id="minimize" layoutX="1000.0" layoutY="2.0" mnemonicParsing="false" onAction="#minimize" prefHeight="24.0" prefWidth="43.0" styleClass="minimize" stylesheets="@resources/css/dashboardDesign.css">
                                  <graphic>
                                     <FontAwesomeIcon glyphName="MINUS" size="1.2em" />
                                  </graphic>
@@ -51,7 +51,7 @@
                <left>
                   <AnchorPane prefHeight="555.0" prefWidth="203.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutX="2.0" layoutY="108.0" prefHeight="555.0" prefWidth="203.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane layoutX="2.0" layoutY="108.0" prefHeight="555.0" prefWidth="203.0" styleClass="nav-form" stylesheets="@resources/css/dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <FontAwesomeIcon fill="WHITE" glyphName="USER" layoutX="69.0" layoutY="100.0" size="7em" />
                               <Label layoutX="65.0" layoutY="112.0" text="Welcome " textFill="WHITE">
@@ -65,23 +65,23 @@
                                  </font>
                               </Label>
                               <Line endX="85.0" layoutX="109.0" layoutY="173.0" startX="-100.0" stroke="WHITE" />
-                              <Button fx:id="home_btn" layoutX="12.0" layoutY="211.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Home">
+                              <Button fx:id="home_btn" layoutX="12.0" layoutY="211.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@resources/css/dashboardDesign.css" text="Home">
                                  <graphic>
                                     <FontAwesomeIcon fill="WHITE" glyphName="HOME" size="1.5em" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="addPosts_btn" layoutX="12.0" layoutY="246.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Social Media">
+                              <Button fx:id="addPosts_btn" layoutX="12.0" layoutY="246.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@resources/css/dashboardDesign.css" text="Social Media">
                                  <graphic>
                                     <FontAwesomeIcon fill="WHITE" glyphName="PLUS_CIRCLE" size="1.5em" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="userProfile_btn" layoutX="12.0" layoutY="282.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="User Profle">
+                              <Button fx:id="userProfile_btn" layoutX="12.0" layoutY="282.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@resources/css/dashboardDesign.css" text="User Profle">
                                  <graphic>
                                     <FontAwesomeIcon fill="WHITE" glyphName="USER" size="1.5em" />
                                  </graphic>
                               </Button> 
 
-                              <Button fx:id="subscribeButton" layoutX="12.0" layoutY="462.0" mnemonicParsing="false" onAction="#VIPSubscription" stylesheets="@dashboardDesign.css">
+                              <Button fx:id="subscribeButton" layoutX="12.0" layoutY="462.0" mnemonicParsing="false" onAction="#VIPSubscription" stylesheets="@resources/css/dashboardDesign.css">
                                  <graphic>
                                      <FontAwesomeIcon fill="WHITE" glyphName="THUMBS_UP" size="2em" />
                                  </graphic>
@@ -97,7 +97,7 @@
                            </Label>
                               
 
-                              <Button fx:id="logout" layoutX="12.0" layoutY="509.0" mnemonicParsing="false" onAction="#logout" stylesheets="@dashboardDesign.css">
+                              <Button fx:id="logout" layoutX="12.0" layoutY="509.0" mnemonicParsing="false" onAction="#logout" stylesheets="@resources/css/dashboardDesign.css">
                                  <graphic>
                                     <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2em" />
                                  </graphic>
@@ -123,14 +123,14 @@
                      <children>
                         <AnchorPane fx:id="home_form" layoutX="90.0" layoutY="138.0" prefHeight="555.0" prefWidth="897.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane layoutX="13.0" layoutY="12.0" prefHeight="532.0" prefWidth="872.0" stylesheets="@dashboardDesign.css">
+                              <AnchorPane layoutX="13.0" layoutY="12.0" prefHeight="532.0" prefWidth="872.0" stylesheets="@resources/css/dashboardDesign.css">
                                  <styleClass>
                                     <String fx:value="white-bg" />
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
                                     
-                                    <AnchorPane  fx:id="pieChartCard" layoutX="481.0" layoutY="78.0" prefHeight="345.0" prefWidth="382.0" stylesheets="@dashboardDesign.css">
+                                    <AnchorPane  fx:id="pieChartCard" layoutX="481.0" layoutY="78.0" prefHeight="345.0" prefWidth="382.0" stylesheets="@resources/css/dashboardDesign.css">
                                        <styleClass>
                                           <String fx:value="white-bg" />
                                           <String fx:value="shadow" />
@@ -178,19 +178,19 @@
 
                         <AnchorPane fx:id="addPosts_form" layoutX="99.0" layoutY="143.0" prefHeight="555.0" prefWidth="897.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="527.0" prefWidth="870.0" stylesheets="@dashboardDesign.css">
+                              <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="527.0" prefWidth="870.0" stylesheets="@resources/css/dashboardDesign.css">
                                  <styleClass>
                                     <String fx:value="white-bg" />
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <AnchorPane prefHeight="262.0" prefWidth="870.0" stylesheets="@dashboardDesign.css">
+                                    <AnchorPane prefHeight="262.0" prefWidth="870.0" stylesheets="@resources/css/dashboardDesign.css">
                                        <styleClass>
                                           <String fx:value="white-bg" />
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TextField fx:id="addPosts_search" layoutX="14.0" layoutY="14.0" onKeyTyped="#addPostsSearch" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="search" stylesheets="@dashboardDesign.css" />
+                                          <TextField fx:id="addPosts_search" layoutX="14.0" layoutY="14.0" onKeyTyped="#addPostsSearch" prefHeight="30.0" prefWidth="274.0" promptText="Search" styleClass="search" stylesheets="@resources/css/dashboardDesign.css" />
                                           <FontAwesomeIcon fill="#727272" glyphName="SEARCH" layoutX="21.0" layoutY="35.0" size="1.5em" />
                                           <TableView fx:id="addPosts_tableView" layoutX="13.0" layoutY="56.0" onMouseClicked="#addPostsSelect" prefHeight="192.0" prefWidth="845.0">
                                             <columns>
@@ -210,69 +210,69 @@
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addPosts_studentNum" layoutX="109.0" layoutY="276.0" prefHeight="25.0" prefWidth="116.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addPosts_studentNum" layoutX="109.0" layoutY="276.0" prefHeight="25.0" prefWidth="116.0" styleClass="textfield" stylesheets="@resources/css/dashboardDesign.css" />
                                     
                                     <Label layoutX="32.0" layoutY="316.0" text="Likes:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addPosts_likes" layoutX="109.0" layoutY="313.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addPosts_likes" layoutX="109.0" layoutY="313.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@resources/css/dashboardDesign.css" />
 
                                     <Label layoutX="313.0" layoutY="279.0" text="Author:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addPosts_author" layoutX="420.0" layoutY="276.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addPosts_author" layoutX="420.0" layoutY="276.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@resources/css/dashboardDesign.css" />
 
                                     <Label layoutX="313.0" layoutY="316.0" text="Content:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addPosts_content" layoutX="420.0" layoutY="313.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addPosts_content" layoutX="420.0" layoutY="313.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@resources/css/dashboardDesign.css" />
 
                                     <Label layoutX="313.0" layoutY="355.0" text="Publish Date:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <DatePicker fx:id="addPosts_pub_date" layoutX="420.0" layoutY="351.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <DatePicker fx:id="addPosts_pub_date" layoutX="420.0" layoutY="351.0" prefWidth="166.0" styleClass="textfield" stylesheets="@resources/css/dashboardDesign.css" />
 
                                     <Label layoutX="313.0" layoutY="391.0" text="Share:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="addPosts_share" layoutX="420.0" layoutY="388.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="addPosts_share" layoutX="420.0" layoutY="388.0" prefHeight="25.0" prefWidth="166.0" styleClass="textfield" stylesheets="@resources/css/dashboardDesign.css" />
 
-                                    <AnchorPane layoutX="705.0" layoutY="281.0" prefHeight="149.0" prefWidth="120.0" stylesheets="@dashboardDesign.css">
+                                    <AnchorPane layoutX="705.0" layoutY="281.0" prefHeight="149.0" prefWidth="120.0" stylesheets="@resources/css/dashboardDesign.css">
                                        <styleClass>
                                           <String fx:value="white-bg" />
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
                                           <ImageView fx:id="addPosts_imageView" fitHeight="149.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Button fx:id="addPosts_insertBtn" layoutY="109.0" mnemonicParsing="false" onAction="#addPostsInsertImage" prefHeight="40.0" prefWidth="120.0" styleClass="insert-btn" stylesheets="@dashboardDesign.css" text="Insert" />
+                                          <Button fx:id="addPosts_insertBtn" layoutY="109.0" mnemonicParsing="false" onAction="#addPostsInsertImage" prefHeight="40.0" prefWidth="120.0" styleClass="insert-btn" stylesheets="@resources/css/dashboardDesign.css" text="Insert" />
                                        </children>
                                     </AnchorPane>
 
-                                    <Button fx:id="postsData_importBtn" layoutX="569.0" layoutY="13.0" mnemonicParsing="false" onAction="#importPostsData" prefHeight="25.0" prefWidth="120.0" styleClass="export-import-btn" stylesheets="@dashboardDesign.css" text="Import">
+                                    <Button fx:id="postsData_importBtn" layoutX="569.0" layoutY="13.0" mnemonicParsing="false" onAction="#importPostsData" prefHeight="25.0" prefWidth="120.0" styleClass="export-import-btn" stylesheets="@resources/css/dashboardDesign.css" text="Import">
                                        <graphic>
                                           <FontAwesomeIcon fill="WHITE" glyphName="CLOUD_DOWNLOAD" size="2em" />
                                       </graphic>
                                     </Button> 
                                     
-                                    <Button fx:id="postData_exportBtn" layoutX="710.0" layoutY="13.0" mnemonicParsing="false" onAction="#exportPostData" prefHeight="25.0" prefWidth="120.0" styleClass="export-import-btn" stylesheets="@dashboardDesign.css" text="Export">
+                                    <Button fx:id="postData_exportBtn" layoutX="710.0" layoutY="13.0" mnemonicParsing="false" onAction="#exportPostData" prefHeight="25.0" prefWidth="120.0" styleClass="export-import-btn" stylesheets="@resources/css/dashboardDesign.css" text="Export">
                                        <graphic>
                                           <FontAwesomeIcon fill="WHITE" glyphName="CLOUD_UPLOAD" size="2em" />
                                       </graphic>
                                     </Button> 
-                                    <Button fx:id="addPosts_addBtn" layoutX="765.0" layoutY="480.0" mnemonicParsing="false" onAction="#addPostsAdd" prefHeight="35.0" prefWidth="85.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Add" />
-                                    <Button fx:id="addPosts_updateBtn" layoutX="669.0" layoutY="480.0" mnemonicParsing="false" onAction="#addPostsUpdate" prefHeight="35.0" prefWidth="85.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Update" />
-                                    <Button fx:id="addPosts_deleteBtn" layoutX="546.0" layoutY="480.0" mnemonicParsing="false" onAction="#addPostsDelete" prefHeight="35.0" prefWidth="85.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Delete" />
-                                    <Button fx:id="addPosts_clearBtn" layoutX="450.0" layoutY="480.0" mnemonicParsing="false" onAction="#addPostsClear" prefHeight="35.0" prefWidth="85.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Clear" />
+                                    <Button fx:id="addPosts_addBtn" layoutX="765.0" layoutY="480.0" mnemonicParsing="false" onAction="#addPostsAdd" prefHeight="35.0" prefWidth="85.0" styleClass="add-btn" stylesheets="@resources/css/dashboardDesign.css" text="Add" />
+                                    <Button fx:id="addPosts_updateBtn" layoutX="669.0" layoutY="480.0" mnemonicParsing="false" onAction="#addPostsUpdate" prefHeight="35.0" prefWidth="85.0" styleClass="update-btn" stylesheets="@resources/css/dashboardDesign.css" text="Update" />
+                                    <Button fx:id="addPosts_deleteBtn" layoutX="546.0" layoutY="480.0" mnemonicParsing="false" onAction="#addPostsDelete" prefHeight="35.0" prefWidth="85.0" styleClass="delete-btn" stylesheets="@resources/css/dashboardDesign.css" text="Delete" />
+                                    <Button fx:id="addPosts_clearBtn" layoutX="450.0" layoutY="480.0" mnemonicParsing="false" onAction="#addPostsClear" prefHeight="35.0" prefWidth="85.0" styleClass="clear-btn" stylesheets="@resources/css/dashboardDesign.css" text="Clear" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -280,20 +280,20 @@
 
                         <AnchorPane fx:id="userProfile_form" layoutX="59.0" layoutY="47.0" prefHeight="555.0" prefWidth="897.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <AnchorPane layoutX="158.0" layoutY="17.0" prefHeight="522.0" prefWidth="584.0" stylesheets="@dashboardDesign.css">
+                              <AnchorPane layoutX="158.0" layoutY="17.0" prefHeight="522.0" prefWidth="584.0" stylesheets="@resources/css/dashboardDesign.css">
                                  <styleClass>
                                     <String fx:value="white-bg" />
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <TextField fx:id="userProfile_first_name" layoutX="300.0" layoutY="30.0" prefHeight="25.0" prefWidth="139.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="userProfile_first_name" layoutX="300.0" layoutY="30.0" prefHeight="25.0" prefWidth="139.0" styleClass="textfield" stylesheets="@resources/css/dashboardDesign.css" />
                                     <Label layoutX="40.0" layoutY="33.0" text="First Name:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
 
-                                    <TextField fx:id="userProfile_last_name" layoutX="300.0" layoutY="71.0" prefHeight="25.0" prefWidth="139.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="userProfile_last_name" layoutX="300.0" layoutY="71.0" prefHeight="25.0" prefWidth="139.0" styleClass="textfield" stylesheets="@resources/css/dashboardDesign.css" />
                                     <Label layoutX="40.0" layoutY="75.0" text="Last Name:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
@@ -301,28 +301,28 @@
                                     </Label>
 
                                     
-                                    <TextField fx:id="userProfile_username" layoutX="300.0" layoutY="112.0" prefHeight="25.0" prefWidth="139.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="userProfile_username" layoutX="300.0" layoutY="112.0" prefHeight="25.0" prefWidth="139.0" styleClass="textfield" stylesheets="@resources/css/dashboardDesign.css" />
                                     <Label layoutX="40.0" layoutY="116.0" text="Username:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
                                     
-                                    <PasswordField fx:id="userProfile_password" layoutX="300.0" layoutY="153.0" prefHeight="25.0" prefWidth="139.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <PasswordField fx:id="userProfile_password" layoutX="300.0" layoutY="153.0" prefHeight="25.0" prefWidth="139.0" styleClass="textfield" stylesheets="@resources/css/dashboardDesign.css" />
                                     <Label layoutX="40.0" layoutY="157.0" text="Password:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
 
-                                    <PasswordField fx:id="userProfile_cPassword" layoutX="300.0" layoutY="193.0" prefHeight="25.0" prefWidth="139.0" styleClass="textfield" stylesheets="@dashboardDesign.css" /> 
+                                    <PasswordField fx:id="userProfile_cPassword" layoutX="300.0" layoutY="193.0" prefHeight="25.0" prefWidth="139.0" styleClass="textfield" stylesheets="@resources/css/dashboardDesign.css" /> 
                                     <Label layoutX="40.0" layoutY="197.0" text="Confirm Password:" AnchorPane.leftAnchor="18.0">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
 
-                                    <Button fx:id="userProfile_updateBtn" layoutX="350.0" layoutY="261.0" mnemonicParsing="false" onAction="#userProfilesUpdate" prefHeight="40.0" prefWidth="93.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Update" />
+                                    <Button fx:id="userProfile_updateBtn" layoutX="350.0" layoutY="261.0" mnemonicParsing="false" onAction="#userProfilesUpdate" prefHeight="40.0" prefWidth="93.0" styleClass="update-btn" stylesheets="@resources/css/dashboardDesign.css" text="Update" />
                                  </children>
                               </AnchorPane>
                            </children>
