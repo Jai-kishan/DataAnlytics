@@ -95,7 +95,7 @@ public class dashboardController implements Initializable {
     private Button home_btn;
 
     @FXML
-    private Button addStudents_btn;
+    private Button addPosts_btn;
 
     @FXML
     private Button logout;
@@ -113,67 +113,67 @@ public class dashboardController implements Initializable {
     private TableView<studentData> home_totalMaleChart;
 
     @FXML
-    private AnchorPane addStudents_form;
+    private AnchorPane addPosts_form;
 
     @FXML
-    private TextField addStudents_search;
+    private TextField addPosts_search;
 
     @FXML
-    private TableView<studentData> addStudents_tableView;
+    private TableView<studentData> addPosts_tableView;
 
     @FXML
-    private TableColumn<studentData, String> addStudents_col_postId;
+    private TableColumn<studentData, String> addPosts_col_postId;
 
     @FXML
-    private TableColumn<studentData, String> addStudents_col_likes;
+    private TableColumn<studentData, String> addPosts_col_likes;
 
     @FXML
-    private TableColumn<studentData, String> addStudents_col_author;
+    private TableColumn<studentData, String> addPosts_col_author;
 
     @FXML
-    private TableColumn<studentData, String> addStudents_col_content;
+    private TableColumn<studentData, String> addPosts_col_content;
 
     @FXML
-    private TableColumn<studentData, String> addStudents_col_pub_date;
+    private TableColumn<studentData, String> addPosts_col_pub_date;
 
     @FXML
-    private TableColumn<studentData, String> addStudents_col_share;
+    private TableColumn<studentData, String> addPosts_col_share;
 
     @FXML
-    private TextField addStudents_studentNum;
+    private TextField addPosts_studentNum;
 
     @FXML
-    private TextField addStudents_likes;
+    private TextField addPosts_likes;
 
     @FXML
-    private TextField addStudents_author;
+    private TextField addPosts_author;
 
     @FXML
-    private DatePicker addStudents_pub_date;
+    private DatePicker addPosts_pub_date;
 
     @FXML
-    private TextField addStudents_share;
+    private TextField addPosts_share;
 
     @FXML
-    private TextField addStudents_content;
+    private TextField addPosts_content;
 
     @FXML
-    private ImageView addStudents_imageView;
+    private ImageView addPosts_imageView;
 
     @FXML
-    private Button addStudents_insertBtn;
+    private Button addPosts_insertBtn;
 
     @FXML
-    private Button addStudents_addBtn;
+    private Button addPosts_addBtn;
 
     @FXML
-    private Button addStudents_updateBtn;
+    private Button addPosts_updateBtn;
 
     @FXML
-    private Button addStudents_deleteBtn;
+    private Button addPosts_deleteBtn;
 
     @FXML
-    private Button addStudents_clearBtn;
+    private Button addPosts_clearBtn;
 
     @FXML
     private Button userProfile_btn;
@@ -516,7 +516,7 @@ public class dashboardController implements Initializable {
         if (file != null) {
             try (FileWriter writer = new FileWriter(file)) {
 
-                ObservableList<TableColumn<studentData, ?>> columns = addStudents_tableView.getColumns();
+                ObservableList<TableColumn<studentData, ?>> columns = addPosts_tableView.getColumns();
 
                 // Write the column headers to the CSV file
                 for (TableColumn<studentData, ?> column : columns) {
@@ -525,7 +525,7 @@ public class dashboardController implements Initializable {
                 writer.write("\n");
 
                 // Write the data from the table to the CSV file
-                for (studentData item : addStudents_tableView.getItems()) {
+                for (studentData item : addPosts_tableView.getItems()) {
                     for (TableColumn<studentData, ?> column : columns) {
                         Object cellData = column.getCellData(item);
                         writer.write(cellData + ",");
@@ -667,7 +667,7 @@ public class dashboardController implements Initializable {
         return true;
     }
 
-    public void addStudentsAdd() {
+    public void addPostsAdd() {
 
         String insertData = "INSERT INTO student "
                 + "(post_id,likes,author,content,birth,share,image,date) "
@@ -678,12 +678,12 @@ public class dashboardController implements Initializable {
         try {
             Alert alert;
 
-            if (addStudents_studentNum.getText().isEmpty()
-                    || addStudents_likes.getText().isEmpty()
-                    || addStudents_author.getText().isEmpty()
-                    || addStudents_content.getText().isEmpty()
-                    || addStudents_pub_date.getValue() == null
-                    || addStudents_share.getText().isEmpty()
+            if (addPosts_studentNum.getText().isEmpty()
+                    || addPosts_likes.getText().isEmpty()
+                    || addPosts_author.getText().isEmpty()
+                    || addPosts_content.getText().isEmpty()
+                    || addPosts_pub_date.getValue() == null
+                    || addPosts_share.getText().isEmpty()
                     || getData.path == null || getData.path == "") {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
@@ -693,7 +693,7 @@ public class dashboardController implements Initializable {
             } else {
                 // CHECK IF THE STUDENTNUMBER IS ALREADY EXIST
                 String checkData = "SELECT post_id FROM student WHERE post_id = '"
-                        + addStudents_studentNum.getText() + "'";
+                        + addPosts_studentNum.getText() + "'";
 
                 statement = connect.createStatement();
                 result = statement.executeQuery(checkData);
@@ -702,16 +702,16 @@ public class dashboardController implements Initializable {
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Error Message");
                     alert.setHeaderText(null);
-                    alert.setContentText("Post ID" + addStudents_studentNum.getText() + " was already exist!");
+                    alert.setContentText("Post ID" + addPosts_studentNum.getText() + " was already exist!");
                     alert.showAndWait();
                 } else {
                     prepare = connect.prepareStatement(insertData);
-                    prepare.setString(1, addStudents_studentNum.getText());
-                    prepare.setString(2, (String) addStudents_likes.getText());
-                    prepare.setString(3, addStudents_author.getText());
-                    prepare.setString(4, (String) addStudents_content.getText());
-                    prepare.setString(5, String.valueOf(addStudents_pub_date.getValue()));
-                    prepare.setString(6, (String) addStudents_share.getText());
+                    prepare.setString(1, addPosts_studentNum.getText());
+                    prepare.setString(2, (String) addPosts_likes.getText());
+                    prepare.setString(3, addPosts_author.getText());
+                    prepare.setString(4, (String) addPosts_content.getText());
+                    prepare.setString(5, String.valueOf(addPosts_pub_date.getValue()));
+                    prepare.setString(6, (String) addPosts_share.getText());
 
                     String uri = getData.path;
                     uri = uri.replace("\\", "\\\\");
@@ -730,9 +730,9 @@ public class dashboardController implements Initializable {
                     alert.showAndWait();
 
                     // TO UPDATE THE TABLEVIEW
-                    addStudentsShowListData();
+                    addPostsShowListData();
                     // TO CLEAR THE FIELDS
-                    addStudentsClear();
+                    addPostsClear();
                 }
             }
 
@@ -741,30 +741,30 @@ public class dashboardController implements Initializable {
         }
     }
 
-    public void addStudentsUpdate() {
+    public void addPostsUpdate() {
 
         String uri = getData.path;
         uri = uri.replace("\\", "\\\\");
 
         String updateData = "UPDATE student SET "
-                + "likes = '" + addStudents_likes.getText()
-                + "', author = '" + addStudents_author.getText()
-                + "', content = '" + addStudents_content.getText()
-                + "', birth = '" + addStudents_pub_date.getValue()
-                + "', share = '" + addStudents_share.getText()
+                + "likes = '" + addPosts_likes.getText()
+                + "', author = '" + addPosts_author.getText()
+                + "', content = '" + addPosts_content.getText()
+                + "', birth = '" + addPosts_pub_date.getValue()
+                + "', share = '" + addPosts_share.getText()
                 + "', image = '" + uri + "' WHERE post_id = '"
-                + addStudents_studentNum.getText() + "'";
+                + addPosts_studentNum.getText() + "'";
 
         connect = database.connectDb();
 
         try {
             Alert alert;
-            if (addStudents_studentNum.getText().isEmpty()
-                    || addStudents_likes.getText().isEmpty()
-                    || addStudents_author.getText().isEmpty()
-                    || addStudents_content.getText().isEmpty()
-                    || addStudents_pub_date.getValue() == null
-                    || addStudents_share.getText().isEmpty()
+            if (addPosts_studentNum.getText().isEmpty()
+                    || addPosts_likes.getText().isEmpty()
+                    || addPosts_author.getText().isEmpty()
+                    || addPosts_content.getText().isEmpty()
+                    || addPosts_pub_date.getValue() == null
+                    || addPosts_share.getText().isEmpty()
                     || getData.path == null || getData.path == "") {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
@@ -777,7 +777,7 @@ public class dashboardController implements Initializable {
                 alert.setTitle("Confirmation Message");
                 alert.setHeaderText(null);
                 alert.setContentText(
-                        "Are you sure you want to UPDATE Post ID" + addStudents_studentNum.getText() + "?");
+                        "Are you sure you want to UPDATE Post ID" + addPosts_studentNum.getText() + "?");
                 Optional<ButtonType> option = alert.showAndWait();
 
                 if (option.get().equals(ButtonType.OK)) {
@@ -791,9 +791,9 @@ public class dashboardController implements Initializable {
                     alert.showAndWait();
 
                     // TO UPDATE THE TABLEVIEW
-                    addStudentsShowListData();
+                    addPostsShowListData();
                     // TO CLEAR THE FIELDS
-                    addStudentsClear();
+                    addPostsClear();
 
                 } else {
                     return;
@@ -804,21 +804,21 @@ public class dashboardController implements Initializable {
         }
     }
 
-    public void addStudentsDelete() {
+    public void addPostsDelete() {
 
         String deleteData = "DELETE FROM student WHERE post_id = '"
-                + addStudents_studentNum.getText() + "'";
+                + addPosts_studentNum.getText() + "'";
 
         connect = database.connectDb();
 
         try {
             Alert alert;
-            if (addStudents_studentNum.getText().isEmpty()
-                    || addStudents_likes.getText().isEmpty()
-                    || addStudents_author.getText().isEmpty()
-                    || addStudents_content.getText().isEmpty()
-                    || addStudents_pub_date.getValue() == null
-                    || addStudents_share.getText().isEmpty()
+            if (addPosts_studentNum.getText().isEmpty()
+                    || addPosts_likes.getText().isEmpty()
+                    || addPosts_author.getText().isEmpty()
+                    || addPosts_content.getText().isEmpty()
+                    || addPosts_pub_date.getValue() == null
+                    || addPosts_share.getText().isEmpty()
                     || getData.path == null || getData.path == "") {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
@@ -830,7 +830,7 @@ public class dashboardController implements Initializable {
                 alert.setTitle("Confirmation Message");
                 alert.setHeaderText(null);
                 alert.setContentText(
-                        "Are you sure you want to DELETE Post ID " + addStudents_studentNum.getText() + "?");
+                        "Are you sure you want to DELETE Post ID " + addPosts_studentNum.getText() + "?");
 
                 Optional<ButtonType> option = alert.showAndWait();
 
@@ -845,9 +845,9 @@ public class dashboardController implements Initializable {
                     alert.showAndWait();
 
                     // TO UPDATE THE TABLEVIEW
-                    addStudentsShowListData();
+                    addPostsShowListData();
                     // TO CLEAR THE FIELDS
-                    addStudentsClear();
+                    addPostsClear();
 
                 } else {
                     return;
@@ -860,19 +860,19 @@ public class dashboardController implements Initializable {
 
     }
 
-    public void addStudentsClear() {
-        addStudents_studentNum.setText("");
-        addStudents_likes.setText("");
-        addStudents_author.setText("");
-        addStudents_content.setText("");
-        addStudents_pub_date.setValue(null);
-        addStudents_share.setText("");
-        addStudents_imageView.setImage(null);
+    public void addPostsClear() {
+        addPosts_studentNum.setText("");
+        addPosts_likes.setText("");
+        addPosts_author.setText("");
+        addPosts_content.setText("");
+        addPosts_pub_date.setValue(null);
+        addPosts_share.setText("");
+        addPosts_imageView.setImage(null);
 
         getData.path = "";
     }
 
-    public void addStudentsInsertImage() {
+    public void addPostsInsertImage() {
 
         FileChooser open = new FileChooser();
         open.setTitle("Open Image File");
@@ -883,7 +883,7 @@ public class dashboardController implements Initializable {
         if (file != null) {
 
             image = new Image(file.toURI().toString(), 120, 149, false, true);
-            addStudents_imageView.setImage(image);
+            addPosts_imageView.setImage(image);
 
             getData.path = file.getAbsolutePath();
 
@@ -891,8 +891,8 @@ public class dashboardController implements Initializable {
     } // WHILE WE INSERT THE DATA ON STUDENT, WE SHOULD INSERT ALSO THE DATA TO
       // STUDENT_GRADE
 
-    public void addStudentsSearch() {
-        String searchValue = addStudents_search.textProperty().getValue();
+    public void addPostsSearch() {
+        String searchValue = addPosts_search.textProperty().getValue();
         try {
             connect = database.connectDb();
             // Write your SQL query with a WHERE clause to filter data based on searchValue
@@ -928,7 +928,7 @@ public class dashboardController implements Initializable {
 
             // Update the TableView with the search results
             ObservableList<studentData> searchResultsList = FXCollections.observableArrayList(searchResults);
-            addStudents_tableView.setItems(searchResultsList);
+            addPosts_tableView.setItems(searchResultsList);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -936,7 +936,7 @@ public class dashboardController implements Initializable {
     }
 
     // LETS WORK FIRST THE ADD STUDENTS FORM : )
-    public ObservableList<studentData> addStudentsListData() {
+    public ObservableList<studentData> addPostsListData() {
 
         ObservableList<studentData> listStudents = FXCollections.observableArrayList();
 
@@ -967,40 +967,40 @@ public class dashboardController implements Initializable {
         return listStudents;
     }
 
-    private ObservableList<studentData> addStudentsListD;
+    private ObservableList<studentData> addPostsListD;
 
-    public void addStudentsShowListData() {
-        addStudentsListD = addStudentsListData();
+    public void addPostsShowListData() {
+        addPostsListD = addPostsListData();
 
-        addStudents_col_postId.setCellValueFactory(new PropertyValueFactory<>("studentNum"));
-        addStudents_col_likes.setCellValueFactory(new PropertyValueFactory<>("likes"));
-        addStudents_col_author.setCellValueFactory(new PropertyValueFactory<>("author"));
-        addStudents_col_content.setCellValueFactory(new PropertyValueFactory<>("content"));
-        addStudents_col_pub_date.setCellValueFactory(new PropertyValueFactory<>("birth"));
-        addStudents_col_share.setCellValueFactory(new PropertyValueFactory<>("share"));
+        addPosts_col_postId.setCellValueFactory(new PropertyValueFactory<>("studentNum"));
+        addPosts_col_likes.setCellValueFactory(new PropertyValueFactory<>("likes"));
+        addPosts_col_author.setCellValueFactory(new PropertyValueFactory<>("author"));
+        addPosts_col_content.setCellValueFactory(new PropertyValueFactory<>("content"));
+        addPosts_col_pub_date.setCellValueFactory(new PropertyValueFactory<>("birth"));
+        addPosts_col_share.setCellValueFactory(new PropertyValueFactory<>("share"));
 
-        addStudents_tableView.setItems(addStudentsListD);
+        addPosts_tableView.setItems(addPostsListD);
 
     }
 
-    public void addStudentsSelect() {
+    public void addPostsSelect() {
 
-        studentData studentD = addStudents_tableView.getSelectionModel().getSelectedItem();
-        int num = addStudents_tableView.getSelectionModel().getSelectedIndex();
+        studentData studentD = addPosts_tableView.getSelectionModel().getSelectedItem();
+        int num = addPosts_tableView.getSelectionModel().getSelectedIndex();
         if ((num - 1) < -1) {
             return;
         }
 
-        addStudents_studentNum.setText(String.valueOf(studentD.getStudentNum()));
-        addStudents_likes.setText(String.valueOf(studentD.getLikes()));
-        addStudents_author.setText(studentD.getAuthor());
-        addStudents_content.setText(studentD.getContent());
-        addStudents_pub_date.setValue(LocalDate.parse(String.valueOf(studentD.getBirth())));
-        addStudents_share.setText(studentD.getShare());
+        addPosts_studentNum.setText(String.valueOf(studentD.getStudentNum()));
+        addPosts_likes.setText(String.valueOf(studentD.getLikes()));
+        addPosts_author.setText(studentD.getAuthor());
+        addPosts_content.setText(studentD.getContent());
+        addPosts_pub_date.setValue(LocalDate.parse(String.valueOf(studentD.getBirth())));
+        addPosts_share.setText(studentD.getShare());
         String uri = "file:" + studentD.getImage();
 
         image = new Image(uri, 120, 149, false, true);
-        addStudents_imageView.setImage(image);
+        addPosts_imageView.setImage(image);
 
         getData.path = studentD.getImage();
 
@@ -1171,38 +1171,38 @@ public class dashboardController implements Initializable {
     public void switchForm(ActionEvent event) {
         if (event.getSource() == home_btn) {
             home_form.setVisible(true);
-            addStudents_form.setVisible(false);
+            addPosts_form.setVisible(false);
 
             userProfile_form.setVisible(false);
 
             home_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3f82ae, #26bf7d);");
-            addStudents_btn.setStyle("-fx-background-color:transparent");
+            addPosts_btn.setStyle("-fx-background-color:transparent");
 
             userProfile_btn.setStyle("-fx-background-color:transparent");
             topNLikes();
             topNShare();
             PieChartShareDistribution();
 
-        } else if (event.getSource() == addStudents_btn) {
+        } else if (event.getSource() == addPosts_btn) {
             home_form.setVisible(false);
-            addStudents_form.setVisible(true);
+            addPosts_form.setVisible(true);
             userProfile_form.setVisible(false);
 
-            addStudents_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3f82ae, #26bf7d);");
+            addPosts_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3f82ae, #26bf7d);");
             home_btn.setStyle("-fx-background-color:transparent");
             userProfile_btn.setStyle("-fx-background-color:transparent");
 
             // TO BECOME UPDATED ONCE YOU CLICK THE ADD STUDENTS BUTTON ON NAV
-            addStudentsShowListData();
-            addStudentsSearch();
+            addPostsShowListData();
+            addPostsSearch();
 
         } else if (event.getSource() == userProfile_btn) {
             home_form.setVisible(false);
-            addStudents_form.setVisible(false);
+            addPosts_form.setVisible(false);
             userProfile_form.setVisible(true);
 
             userProfile_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3f82ae, #26bf7d);");
-            addStudents_btn.setStyle("-fx-background-color:transparent");
+            addPosts_btn.setStyle("-fx-background-color:transparent");
             home_btn.setStyle("-fx-background-color:transparent");
 
         }
@@ -1227,7 +1227,7 @@ public class dashboardController implements Initializable {
         PieChartShareDistribution();
 
         // TO SHOW IMMIDIATELY WHEN WE PROCEED TO DASHBOARD APPLICATION FORM
-        addStudentsShowListData();
+        addPostsShowListData();
 
     }
 
