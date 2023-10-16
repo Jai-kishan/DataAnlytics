@@ -337,7 +337,7 @@ public class FXMLDocumentController implements Initializable {
             alert.errorMessage("Invalid Password, at least 8 characters needed");
         } else {
             // USERNAME IS OUR REFERENCE TO UPDATE THE DATA OF THE USER
-            String updateData = "UPDATE users SET password = ?, update_date = ? " + "WHERE username = '"
+            String updateData = "UPDATE users SET password = ?, updated_date = ? " + "WHERE username = '"
                     + forgot_username.getText() + "'";
 
             connect = database.connectDb();
