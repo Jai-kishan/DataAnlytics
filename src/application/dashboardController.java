@@ -719,6 +719,7 @@ public class dashboardController implements Initializable {
 
     public void addPostsUpdate() {
         alertMessage alert = new alertMessage();
+        try {
         String uri = getData.path;
         uri = uri.replace("\\", "\\\\");
 
@@ -732,7 +733,6 @@ public class dashboardController implements Initializable {
                 + addPosts_studentNum.getText() + "'";
 
         connect = database.connectDb();
-        try {
             if (addPosts_studentNum.getText().isEmpty()
                     || addPosts_likes.getText().isEmpty()
                     || addPosts_author.getText().isEmpty()
