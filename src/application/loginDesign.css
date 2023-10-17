@@ -44,3 +44,19 @@
 .login-btn:hover{
     -fx-background-color:linear-gradient(to bottom, #277bd0, #1b6fa4);
 }
+
+
+.white-bg{
+    -fx-background-color: #fff;
+}
+
+.btn{
+    -fx-background-color: linear-gradient(to bottom right, #3f5efb, #fc466b);
+    -fx-cursor: hand;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+}
+.btn:hover{
+    -fx-background-color: linear-gradient(to bottom right, #277bd0, #1b6fa4);
+}
