@@ -127,8 +127,7 @@ public class FXMLDocumentController implements Initializable {
 
         connect = database.connectDb();
 
-        try { // IT WORKS GOOD : ) NOW LETS DESIGN THE DASHBOARD FORM : )
-              // Alert alert;
+        try {
 
             if (login_selectShowPassword.isSelected()) {
                 password.setText(login_showPassword.getText());
