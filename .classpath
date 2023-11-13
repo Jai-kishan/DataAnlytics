@@ -21,6 +21,21 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/jaiki/eclipse-workspace/DataAnalyticsHub/dist/lib/sqlite-jdbc-3.7.2.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/jaiki/eclipse-workspace/DataAnalyticsHub/dist/lib/fontawesomefx-8.2.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/jaiki/eclipse-workspace/DataAnalyticsHub/dist/lib/jfreechart-1.0.19.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="C:/Program Files/Java/javafx-sdk-21/lib/javafx.base.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -61,17 +76,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/jaiki/eclipse-workspace/DataAnalyticsHub/dist/lib/sqlite-jdbc-3.7.2.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/jaiki/eclipse-workspace/DataAnalyticsHub/dist/lib/fontawesomefx-8.2.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/jaiki/eclipse-workspace/DataAnalyticsHub/dist/lib/jfreechart-1.0.19.jar">
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

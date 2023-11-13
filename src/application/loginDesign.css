@@ -1,17 +1,5 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 09 17, 22, 10:12:46 AM
-    Author     : WINDOWS 10
-SUBSCRIBE OUR YOUTUBE CHANNEL -> https://www.youtube.com/channel/UCPgcmw0LXToDn49akUEJBkQ
- * THANKS FOR YOUR SUPPORT : ) 
-*/
-
 .left-form{
-    -fx-background-color:linear-gradient(to bottom right, #2d658c, #2ca772);
+    -fx-background-color:linear-gradient(to bottom right, #3f5efb, #fc466b);
     -fx-border-color:#000;
     -fx-border-width:.4px 0px .4px .4px;
 }
@@ -41,12 +29,12 @@ SUBSCRIBE OUR YOUTUBE CHANNEL -> https://www.youtube.com/channel/UCPgcmw0LXToDn4
 }
 .textfield:focused{
     -fx-background-color:#fff;
-    -fx-border-color:linear-gradient(to bottom right, #2d658c, #2ca772);
+    -fx-border-color:linear-gradient(to bottom right, #3f5efb, #fc466b);
     -fx-border-width:.8px;
 }
 
 .login-btn{
-    -fx-background-color:linear-gradient(to bottom, #2968a7, #14405d);
+    -fx-background-color:linear-gradient(to bottom, #3f5efb, #fc466b);
     -fx-background-radius:4px;
     -fx-cursor:hand;
     -fx-text-fill:#fff;
@@ -55,4 +43,20 @@ SUBSCRIBE OUR YOUTUBE CHANNEL -> https://www.youtube.com/channel/UCPgcmw0LXToDn4
 }
 .login-btn:hover{
     -fx-background-color:linear-gradient(to bottom, #277bd0, #1b6fa4);
+}
+
+
+.white-bg{
+    -fx-background-color: #fff;
+}
+
+.btn{
+    -fx-background-color: linear-gradient(to bottom right, #3f5efb, #fc466b);
+    -fx-cursor: hand;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+    -fx-font-family: Arial;
+}
+.btn:hover{
+    -fx-background-color: linear-gradient(to bottom right, #277bd0, #1b6fa4);
 }
