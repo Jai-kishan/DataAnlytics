@@ -6,7 +6,6 @@ module DataAnalyticsHub {
 	requires org.junit.jupiter.api;
 	requires junit;
 //	requires jdk.incubator.vector;
-	requires org.mockito;
 	requires javafx.graphics;
 	
 	opens application to javafx.graphics, javafx.fxml, javafx.base;
